@@ -1,0 +1,557 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Profile | Clap Station {% endblock title %}
+
+{% block head %}
+<style>
+footer{
+    margin-bottom:-50px;
+  }
+  /* carausol start */
+  .centered-image {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(191, 145, 0,0.2);
+  }
+
+
+  .centered-image img {
+    width: 60%;
+    height: 450px;
+  }
+
+
+  @media(max-width:950px){
+    .centered-image {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(191, 145, 0,0.2);
+    }
+    
+    .centered-image img {
+      width: 60%;
+      height: 450px;
+      object-fit: scale-down;
+    }
+    
+  }
+
+  @media(max-width:700px){
+    .centered-image {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(191, 145, 0,0.2);
+    }
+    
+    .centered-image img {
+      width: 60%;
+      height: 300px;
+      object-fit: scale-down;
+    }
+    
+  }
+  
+
+  .carousel-name{
+    background: #f0f0f0;
+  }
+
+  .artist-content{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .artist-content .name{
+    margin-left: 50px;
+  }
+
+  .artist-content .para{
+    margin-left: 50px;
+  }
+
+  .btn-container {
+    position: relative;
+    background-color: #f0f0f0;
+  }
+
+  .btn-left {
+    position: absolute;
+    left: 73%;
+    margin-top: -13px;
+    transform: translateY(50%);
+    padding: 15px 20px;
+    background-color: #bf9100;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .event-date{
+    margin-left: 65px; 
+    margin-top: -10px; 
+    margin-bottom: 10px;
+  }
+
+  .main-event{
+    margin-left: 20px; 
+    margin-bottom: 50px;
+  }
+
+  /* left section start */
+  .main-event .lft-name{
+    margin-top: 20px; 
+    margin-bottom: 20px; 
+    margin-left: 15px;
+  }
+
+  .main-event .lft-image img{
+    width: 100px; 
+    height: 100px; 
+    border-radius: 50%; 
+    margin-bottom: 10px;  
+    object-fit: cover;
+  }
+  .lft-content{
+    background: #f0f0f0;
+  }
+
+  /* middle section */
+  .middle-content{
+    background: #f0f0f0; 
+    margin-left: 15px; 
+    width: 45%;
+  }
+
+  .middle-note{
+    margin-top: 20px; 
+    margin-bottom: 20px; 
+    margin-left: 15px;
+  }
+
+  .sec-heading .sec-list{
+    margin-left: 30px; 
+    margin-top: 10px;
+  }
+
+  .third-heading .third-ul{
+    margin-left: 18px; 
+    margin-top: 20px;
+  }
+  .third-heading .third-ul .third-li{
+    margin-top: 10px;
+  }
+  
+  .accordion {
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    margin-top: 50px;
+  }
+
+  .accordion-header {
+    background-color: #f1f1f1;
+    padding: 10px;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .accordion-header:hover {
+    background-color: #ddd;
+  }
+
+  .accordion-content {
+    display: none;
+    padding: 10px;
+    margin-left: 15px;
+  }
+
+  .accordion-header i {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+  }
+
+  /* third section */
+  .map-marker-icon {
+    color: #bf9100;
+  }
+
+  .more-content {
+    display: none;
+  }
+
+  .rht-content{
+    background: #f0f0f0; 
+    margin-left: 15px; 
+    width: 26%;
+  }
+  .rht-content .rht-heading{
+    margin-top: 20px; 
+    margin-bottom: 30px;
+  }
+
+  @media(min-width: 768px) and (max-width: 991px){
+    .rht-content {
+    background: #f0f0f0;
+    margin-left: 2px;
+    width: 50%;
+    margin-top: -295px;
+}
+.carousel-name{
+   height: 25vh;
+  }
+  .btn-left{
+    left: 45%;
+    margin-top: 8%;
+  }
+}
+
+@media (max-width: 767px){
+  .middle-content, .rht-content{ 
+    margin-left: 0; 
+    width: 97%;
+    margin-top: 25px;
+  }
+  .lft-content{
+    width: 97%;
+  }
+  .carousel-name{
+   height: 25vh;
+  }
+  .btn-left{
+    left: 45%;
+    margin-top: 11%;
+  }
+}
+
+@media (max-width:430px){
+  .carousel-name{
+   height: 35vh;
+  }
+  .btn-left {
+    left: 30%;
+    margin-top: 30%;
+}
+}
+
+ /* event detail  starts */
+ .event-detail{
+  background-color:white;
+  
+  padding: 15px;
+  
+  margin: 20px;
+ 
+
+}
+#BookBtn{
+  background-color: #bf9100;
+  float: right;
+  display: inline;
+  padding: 15px;
+  color: white;
+  border-radius: 12px;
+  font-size: 15px;
+  margin-right: 55px;
+  margin-top: -9px;
+}
+
+@media(max-width:498px){
+  #BookBtn{
+    background-color: #bf9100;
+    
+    width: 100%;
+    display:block;
+    padding: 15px;
+    color: white;
+    border-radius: 12px;
+    font-size: 15px;
+    margin: auto;
+    margin-top: 12px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+  }
+}
+.title-event{
+  margin-left: 65px;
+  margin-top: 12px;
+}
+
+.event-about{
+  width: 57%;
+  margin-left: 65px;
+  margin-top: 12px;
+  margin-right: 55px;
+  
+}
+.event-about p{
+  
+  line-height:25px;
+  font-size: 18px;
+  background-color:rgb(255 196 11 / 32%);
+  padding: 30px;
+  text-align: justify;
+  
+}
+  /* event detail ends */
+.carousel-control .fa-chevron-right{
+  margin-top: 200px;
+}
+
+.carousel-control .fa-chevron-left{
+  margin-top: 200px;
+}
+@media(max-width: 700px){
+  .carousel-control .fa-chevron-right{
+    margin-top: 150px;
+  }
+  
+  .carousel-control .fa-chevron-left{
+    margin-top: 150px;
+  }
+}
+.accordion-content iframe{
+  width: 100%;
+}
+
+@media (max-width: 320px){
+  .justify-content-center h4{
+    margin-top: 102px;
+    margin-left: -106px;
+  }
+  .btn-primary {
+    margin-bottom: 10px;
+}
+}
+
+</style>
+{% endblock head %}
+
+{% block webpage %}
+
+<!-- caraousel start -->
+  <div class="container-fluid" style="margin-top: 80px; margin-bottom: 50px;">
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner" role="listbox"> 
+         {% if eventsimage %} 
+        {% for i in eventsimage %}
+        <div class="item {% if forloop.counter0 == 0 %} active {% endif %}">
+            <div class="centered-image">
+              <img src="{{i.image.url}}" alt="..." >
+            </div>        
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="centered-image">
+          <img src="{{events.poster.url}}" alt="..." >
+        </div> 
+        {% endif %}
+      <!-- Controls -->
+      <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <i class="fa fa-chevron-left" aria-hidden="true" ></i>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <i class="fa fa-chevron-right" aria-hidden="true"  ></i>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+<!-- carousel end -->
+
+<!-- event details start -->
+<div class="event-detail">
+  <div>
+    {% if user.is_authenticated %}
+    
+    <a href="{% url 'booking' events.id %}"><h2 class="title-event"><span>{{ events.event_title }}</span> <button id="BookBtn">Book Now</button></h2></a>
+    {% endif %}
+    <hr>
+    <h4 class="title-event">{{ events.category }}<span> | English, Hindi</span> <span> | Age 16+ <span> | {{ events.duration }} hr</span></span></h4>
+  </div>
+  
+  
+  <div>
+  <h4 class="title-event"><i class="fa fa-calendar map-marker-icon" aria-hidden="true"></i> {{events.date}} 
+    <span style="margin-left: 10px;"> <i class="fa fa-map-marker map-marker-icon" aria-hidden="true"></i>{{events.venue}}</span>
+    <span> | <i class="fa fa-inr map-marker-icon" aria-hidden="true"></i> {{events.ticket_price}} <span style="font-size: small;">Onwords</span>
+  </h4>
+  </div>
+   <hr>
+  <div class="event-about">
+    <p>{{events.description}}</p>
+
+  </div>
+  <div>
+
+  </div>
+
+</div>
+<!-- event details ends -->
+
+
+
+<div class="container-fluid main-event">
+  <div class="row">
+    <!-- left content -->
+    <div class="col-md-3 col-sm-6 col-xs-12 lft-content">
+      <h4 class="lft-name">Artsit | {{event_adder.role}}</h4>
+
+      <div class="col-md-6 col-sm-6 col-xs-6 lft-image ">
+        <img src="/media/{{event_adder.profile_image}}" alt="">
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-6 d-flex align-items-center justify-content-center">
+        <h4>{{event_adder.First_name}} {{event_adder.Last_name}}</h4>
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-6 d-flex align-items-center justify-content-center">
+       
+          <a href="{% url 'artistProfile' event_adder.id %}" class="btn btn-primary" style="background-color: #bf9100; margin-top: 10px;">View Profile</a>
+                    
+      </div>
+    </div>
+
+    <!-- middle content -->
+    <div class="col-md-4 col-sm-6 col-xs-12 middle-content">
+      <div style=" background: #fc94aa31; margin-bottom: 50px;">
+        <h4 class="middle-note">Note</h4>
+        <div style="margin-left: 15px;">
+          <p>- Gate Open - 06:30 PM</p>
+          <p>- Opening act Performance - 07:00 PM to 07:30 PM</p>
+          <p>- name Band Performance - 07:30 PM ownwards </p>
+        </div>
+      </div>
+
+      <div class="sec-heading">
+        <h4>Why Should you attend ?</h4>
+        <ul class="sec-list">
+          <li>Vibe to some old classics with a modern twist</li>
+          <li>Sing along to some Bollywood jams</li>
+          <li>Create some unforgettable memories</li>
+        </ul>
+      </div>
+
+      <hr>
+
+      <div class="third-heading">
+        <h4>About</h4>
+        <ul class="third-ul">
+          <li>INDIA!! Get ready to witness 4 POP STARS in 8+ CITIES on 1 STAGE</li>
+          <li class="more-content">
+            <ul class="third-li">
+              <li>The band is back with a bang with their INDIA TOUR and is all set to take the country by storm with
+                their musical hits like Kya Hua Tera Wada, Aur Iss Dil Mein, Gulabi Aankhen, Lag Jaa Gale, and many
+                more.</li>
+              <li>The band SANAM consists of Sanam Puri (lead vocalist/composer), Samar Puri (lyricist/lead
+                guitar/composer), Venky S or Venkat Subramaniyam (bass guitar) and Keshav Dhanraj. They are well known
+                for their renditions of old Classic Indian Bollywood songs and original music.</li>
+              <li>The band was also among India`s Top 10 Independent YouTube Channels in 2016, won the Best Music
+                Content Creator
+                Award at Social Media Summit & Awards in 2017, also declared an artist of the month on MTV Beats for
+                their new release "Sanam Mennu"</li>
+              <li>So what are you waiting for? Please book your tickets now and join us for an enchanting musical set
+                that you can`t afford to miss!!</li>
+            </ul>
+          </li>
+        </ul>
+        <a href="#" id="readMoreLink" style="color: #bf9100; margin-bottom: 50px;">Read more</a>
+      </div>
+
+      <div class="middle-accord">
+        <div class="accordion">
+          <div class="accordion-header">
+            Terms & Conditions
+            <i class="fa fa-chevron-circle-down fa-chevron-icon" aria-hidden="true" style="color: #bf9100;"></i>
+          </div>
+          <div class="accordion-content">
+            <ol>
+              <li>
+                Tickets once booked cannot be exchanged or refunded
+              </li>
+              <li>An Internet handling fee per ticket may be levied. Please check the total amount before payment</li>
+              <li>We recommend that you arrive at-least 30 minutes prior at the venue for a seamless entry </li>
+              <li>
+                It is mandatory to wear masks at all times and follow social distancing norms
+              </li>
+              <li> Please do not purchase tickets if you feel sick</li>
+              <li>Unlawful resale (or attempted unlawful resale) of a ticket would lead to seizure or cancellation of
+                that ticket without refund or other compensation</li>
+              <li> Rights of admission reserved</li>
+              <li>These terms and conditions are subject to change from time to time at the discretion of the organizer
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+    <!-- right content -->
+    <div class="col-md-3 col-sm-6 col-xs-12 rht-content">
+      <h4 class="rht-heading">{{events.city}}|{{events.state}}</h4>
+      <div class="accordion">
+        <div class="accordion-header">
+          {{events.venue}}
+          <i class="fa fa-chevron-circle-down" style="color: #bf9100;"></i>
+        </div>
+        <div class="accordion-content">
+          <p>Roof Top, Dadri Road, Beta-II, Greater Noida, 201308, India</p>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28053.730129895746!2d77.47749981083984!3d28.488090300000007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cea60549f9803%3A0xf4dfa743b25d50d1!2sINOX%20Omaxe%20Connaught%20Place%20Mall!5e0!3m2!1sen!2sin!4v1707912746488!5m2!1sen!2sin"
+            width="280" height="330" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- read more js -->
+<script>
+  const readMoreLink = document.getElementById('readMoreLink');
+  const moreContent = document.querySelector('.more-content');
+
+  let expanded = false;
+
+  readMoreLink.addEventListener('click', function(event) {
+    event.preventDefault();
+    expanded = !expanded;
+    if (expanded) {
+      moreContent.style.display = 'inline'; // Show the extra content
+      readMoreLink.textContent = 'Read less';
+    } else {
+      moreContent.style.display = 'none'; // Hide the extra content
+      readMoreLink.textContent = 'Read more';
+    }
+  });
+</script>
+
+<!-- accordian js -->
+<script>
+  const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+  accordionHeaders.forEach(header => {
+    header.addEventListener('click', function() {
+      const content = this.nextElementSibling;
+      content.style.display = (content.style.display === 'block') ? 'none' : 'block';
+      const icon = this.querySelector('i');
+      icon.classList.toggle('fa-chevron-circle-down');
+      icon.classList.toggle('fa-chevron-circle-up');
+    });
+  });
+</script>
+
+
+{% endblock webpage %}

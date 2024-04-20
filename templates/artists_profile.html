@@ -1,0 +1,1013 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Profile | Clap Station {% endblock title %}
+
+{% block head %}
+
+<style>
+	.profile-pop-up1 {
+		position: fixed;
+		top: 20px;
+		left: 50%;
+		transform: translateX(-50%);
+		padding: 15px;
+		border-radius: 5px;
+		background-color: #f8d7da;
+		color: #721c24;
+		border: 1px solid #f5c6cb;
+		width: 300px;
+		text-align: center;
+		z-index: 2;
+	}
+
+	.profile-pop-up2 {
+		cursor: pointer;
+		float: right;
+		margin-top: -5px;
+		margin-right: -5px;
+		font-size: 20px;
+		font-weight: bold;
+	}
+
+	.top-left-dtl-one {
+		margin-top: -20px;
+		width: 100%;
+		margin-left: 45px;
+	}
+
+	.top-left-dtl-second {
+		margin-left: 40px;
+	}
+
+	.left-dtl-one-list {
+		margin-left: 5px;
+		width: 30%;
+	}
+
+	.top-left-dtl-third {
+		margin-top: 20px;
+		width: 100%;
+		margin-left: 35px;
+	}
+
+	.home-contact-dtl table {
+		width: 100%;
+	}
+
+	.home-right-area {
+		margin-top: -20px;
+	}
+
+	.home-right-area .home-contact {
+		padding: 0 0 0;
+	}
+
+	.home-contact {
+		margin-top: 40px;
+		margin-bottom: 20px;
+	}
+
+	.home-middle-area-btn {
+		margin-top: 5px;
+	}
+
+	.middle-text-post {
+		height: auto;
+	}
+
+	.home-event {
+		margin-top: -20px;
+	}
+
+	@media screen and (min-width: 992px) {
+		.top-left-dtl-third {
+			margin-left: 10px 0;
+		}
+
+		.top-left-dtl-third .profile-btn {
+			margin: 2px 0;
+		}
+	}
+
+	@media (max-width: 991px) {
+		.top-left-dtl-third {
+			margin-left: 10px;
+		}
+
+		.home-right-area {
+			margin-top: 20px;
+		}
+
+		.home-advts {
+			margin-top: 15px;
+		}
+
+		.home-contact {
+			margin-top: -20px;
+		}
+	}
+
+	@media (max-width: 767px) {
+		.home-advts .golden-heading {
+			margin-top: 835px;
+		}
+
+		.top-left-dtl-one {
+			margin-left: 15px;
+		}
+
+		.top-left-dtl-second {
+			margin-left: 15px;
+		}
+
+		.top-left-dtl-third {
+			margin-left: 0;
+		}
+
+		.top-left-dtl-third .profile-btn {
+			margin: 2px 0;
+		}
+
+		.left-dtl-one-list {
+			display: none;
+		}
+
+		.home-right-area {
+			margin-top: -250px;
+		}
+
+		.home-contact {
+			margin-top: 250px;
+		}
+
+		.home-advts {
+			margin-top: -820px;
+		}
+	}
+
+	@media only screen and (min-width: 563px) and (max-width: 596px) {
+		.middle-text-post {
+			height: 190px;
+		}
+
+		.home-middle-area-btn {
+			margin-top: -20px;
+		}
+	}
+
+	/* edit profile model start */
+	.login-detail-wrap {
+		margin-top: 10px;
+		margin-left: 40px;
+	}
+
+	.login-detail-in {
+		padding: 15px 20px;
+	}
+
+	.technichian-detailcf .middle-txt-area textarea {
+		width: 400px;
+		height: 100px;
+		margin-left: -15px;
+	}
+
+	/* edit profile model end */
+
+	.follow-rates {
+		background-color: #fff;
+		padding: 11px 15px 0 8px;
+	}
+
+	.heading h3 {
+		color: #fff;
+		font-size: 16px;
+		font-weight: 500;
+	}
+
+	.container {
+		max-width: 124rem;
+		padding: 0 13rem;
+		margin: 0 auto;
+	}
+
+	.heading {
+		color: #444;
+		font-size: 40px;
+		text-align: center;
+		padding: 10px;
+		margin-top: 20px;
+		overflow: hidden;
+	}
+
+	@media (max-width: 767px) {
+		.pf-section {
+			margin-bottom: 20px;
+		}
+
+		.heading {
+			font-size: 40px;
+			text-align: center;
+			padding: 10px;
+			margin-top: 270px;
+		}
+	}
+
+	@media (max-width: 447px) {
+		.heading {
+			font-size: 40px;
+			text-align: center;
+			padding: 10px;
+			margin-top: 300px;
+		}
+	}
+
+	@media (max-width: 991px) {
+		.follow-rates {
+			background-color: #fff;
+			padding: 11px 15px 15px 8px;
+			margin-top: 20px;
+			margin-left: 10px;
+		}
+	}
+
+	@media (max-width: 562px) {
+		.middle-text-post {
+			padding-bottom: 60px;
+		}
+	}
+
+	/* ---------------------- photo section start ------------------------- */
+	section {
+		background: url('{% static "images/about-gif1.gif" %}') center/cover no-repeat;
+	}
+
+	.about-heading h1 {
+		margin-bottom: 50px;
+	}
+
+	.photo-gallery1 {
+		/* display: none; */
+		columns: 4;
+		column-gap: 16px;
+	}
+
+	.grid-images {
+		display: block;
+		margin-bottom: 16px;
+		position: relative;
+	}
+
+	.grid-images img {
+		width: 100%;
+		border-radius: 5px;
+	}
+
+	@media(max-width:1200px) {
+		.photo-gallery1 {
+			columns: 3;
+		}
+	}
+
+	@media(max-width:992px) {
+		.photo-gallery1 {
+			columns: 2;
+		}
+	}
+
+	@media(max-width:767px) {
+		.photo-gallery1 {
+			columns: 1;
+		}
+	}
+
+	.scrollbar-column {
+		overflow-y: auto;
+		height: 400px;
+		display: grid;
+		flex-direction: row-reverse;
+	}
+
+	.scrollbar-content {
+		overflow-y: scroll;
+		padding-right: 1%;
+		width: calc(100% - 20px);
+	}
+
+	.scrollbar-content::-webkit-scrollbar {
+		border-radius: 10px;
+		width: 10px;
+		background-color: #ccc;
+	}
+
+	.scrollbar-content::-webkit-scrollbar-thumb {
+		background-color: #888;
+		border-radius: 10px;
+	}
+
+
+	/* ---------------------- videos section ----------------- */
+	.custom-video {
+		background: #eee;
+		margin-top: 20px;
+	}
+
+	.container-video {
+		display: grid;
+		grid-template-columns: 2fr 1fr;
+		gap: 15px;
+		align-items: flex-start;
+		padding: 5px 5%;
+		margin-top: 35px;
+		margin-bottom: 35px;
+	}
+
+	.container-video .main-video {
+		background: #fff;
+		border-radius: 5px;
+		padding: 10px;
+	}
+
+	.container-video .main-video video {
+		width: 100%;
+		border-radius: 5px;
+	}
+
+	.container-video .main-video .title {
+		color: #333;
+		font-size: 23px;
+		padding-top: 15px;
+		padding-bottom: 15px;
+	}
+
+	.container-video .video-list {
+		background: #fff;
+		border-radius: 5px;
+		height: 520px;
+		overflow-y: scroll;
+	}
+
+	.container-video .video-list::-webkit-scrollbar {
+		width: 7px;
+	}
+
+	.container-video .video-list::-webkit-scrollbar-track {
+		background: #ccc;
+		border-radius: 50px;
+	}
+
+	.container-video .video-list::-webkit-scrollbar-thumb {
+		background: #666;
+		border-radius: 50px;
+	}
+
+	.container-video .video-list .vid video {
+		width: 33%;
+		border-radius: 5px;
+	}
+
+	.container-video .video-list .vid {
+		display: flex;
+		align-items: center;
+		gap: 15px;
+		background: #f7f7f7;
+		border-radius: 5px;
+		margin: 10px;
+		padding: 10px;
+		border: 1px solid rgba(0, 0, 0, .1);
+		cursor: pointer;
+	}
+
+	.container-video .video-list .vid:hover {
+		background: #eee;
+	}
+
+	.container-video .video-list .vid.active {
+		background: #2980b9;
+	}
+
+	.container-video .video-list .vid.active .title {
+		color: #fff;
+	}
+
+	.container-video .video-list .vid .title {
+		color: #333;
+		font-size: 17px;
+	}
+
+	@media (max-width:991px) {
+		.container-video {
+
+			grid-template-columns: 1.5fr 1fr;
+			padding: 10px;
+			margin-top: 30px;
+		}
+	}
+
+	@media (max-width:768px) {
+		.container-video {
+			grid-template-columns: 1fr;
+			padding: 10px;
+		}
+	}
+
+	.title-box {
+		text-align: center;
+		margin: 30px auto 30px;
+	}
+
+	.profile-box {
+		width: 280px;
+		height: 260px;
+		background: #fff;
+		border-radius: 4px;
+		margin-bottom: 30px;
+		margin-left: 5%;
+		padding: 20px;
+		box-shadow: 0 10px 10px rgba(115, 193, 255, 0.1);
+		position: relative;
+		transition: background 0.5s;
+		justify-content: space-evenly;
+	}
+
+	.profile-box img {
+		width: 100px;
+		position: absolute;
+		top: 20px;
+		right: 20px;
+		border-radius: 4px;
+		transition: .5s;
+	}
+
+	.profile-box h4 {
+		margin-top: 25px;
+		margin-bottom: 5px;
+		margin-right: 50%;
+		color: #000;
+	}
+
+	small {
+		color: #555;
+		margin-right: 77%;
+	}
+
+	.social-box {
+		background: rgb(191 145 0 / 0.7);
+		margin: 120px auto 10px;
+		text-align: center;
+		border-radius: 3px;
+	}
+
+	.social-box .fa {
+		margin: 5px;
+		color: #fff;
+		cursor: pointer;
+	}
+
+
+	.team-row {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		width: 85%;
+		margin: auto;
+	}
+
+	.profile-box img:hover {
+		width: 240px;
+	}
+
+	.profile-box:hover {
+		background: rgb(191 145 0 / 0.7);
+	}
+
+	.profile-box:hover h4 {
+		color: #fff;
+	}
+
+
+	.profile-box:hover small {
+		color: #efefef;
+	}
+
+	.profile-box:hover .social-box {
+		background: #fff;
+	}
+
+	.profile-box:hover .social-box .fa {
+		background: rgb(191 145 0 / 0.7);
+	}
+
+	.modal-content-edit {
+		width: 1100px;
+		margin-left: 130px;
+	}
+
+	/* pagination */
+.pagination>li:first-child>a{
+    margin-left: 0;
+	padding: 6px 24px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #bf9100;
+    color: #fff;
+}
+.pagination>li:last-child>a{
+    margin-left: 5px;
+	padding: 6px 24px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #bf9100;
+    color: #fff;
+}
+
+.pagination>li>a, .pagination>li>span {
+    position: relative;
+    float: left;
+    padding: 6px 24px;
+    margin-left: 5px;
+	line-height: 45px;
+    color: #fff;
+    text-decoration: none;
+    background-color: #bf9100;
+    border: 1px solid #ddd;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.pagination>.active>a, .pagination>.active>a:hover{
+    z-index: 2;
+    color: #000;
+    cursor: default;
+    background-color: #ccc;
+    border-color: #bf9100;
+}
+
+/* pagination */
+	.home-posts-wrap {
+		margin-top: -15px;
+	}
+
+	/* post and profile */
+	.post-user-detail {
+		position: relative;
+
+
+	}
+
+	.post-user-name {
+		display: inline;
+		position: absolute;
+		margin-left: 15px;
+		margin-top: 12px;
+	}
+
+	#post-user-img {
+		height: 40px;
+		width: 40px;
+		border-radius: 50%;
+		margin-left: 15px;
+		display: inline;
+
+	}
+
+	.postdate {
+		font-size: 1.3rem;
+		float: right;
+		right: 10px;
+		display: inline;
+		margin-top: 12px;
+		position: absolute;
+
+	}
+
+	@media(max-width: 408px) {
+		.postdate {
+			font-size: 1.3rem;
+
+			right: 10px;
+			display: block;
+			margin-top: 12px;
+			position: absolute;
+
+		}
+	}
+</style>
+{% endblock head %}
+
+{% block webpage %}
+
+{% if messages %}
+<div class="profile-pop-up1">
+	<span class="profile-pop-up2" onclick="this.parentElement.style.display='none'">&times;</span>
+
+	{% for message in messages %}
+	{{ message }}<br>
+	{% endfor %}
+</div>
+{% endif %}
+
+<!--webpage-->
+<!-- share model -->
+<div id="shareModal" class="book-modal modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title">share your Post</h1>
+
+			</div>
+			<div class="modal-body">
+				<div class="book-body-wrap posts-images">
+					<li><a href="https://wa.me/9720806043"><i
+								class="fa fa-whatsapp"></i> whatsapp</a></li>
+					<li><a href="https://www.facebook.com/"><i
+								class="fa fa-facebook" aria-hidden="true"></i>
+							facebook</a></li>
+					<li><a href="https://twitter.com/"><i class="fa fa-twitter"
+								aria-hidden="true"></i> twitter</a></li>
+					<li><a href="https://www.instagram.com/"><i
+								class="fa fa-instagram" aria-hidden="true"></i>
+							instagram</a></li>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<a href="{% url 'profile' %}"></a><button type="button"
+					class="cmmn-btn book-btn slowHover"
+					data-dismiss="modal">Back </button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end share model -->
+<div class="webpage page-new-profile" style="margin-top: 70px;">
+	<div class="container-fluid">
+		<div class="home-page-wrap profile-page-wrap">
+
+			<div class="row">
+				<!-- first row start -->
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pf-section">
+					<div class="row">
+
+						<!-- Profile section start -->
+						<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 profile-top-left-col">
+							<div class="profile-top-left jamming-top-left">
+								<div class="row">
+									<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12"
+										style="width: 15%; margin-left: 15px;">
+										<div class="top-left-image">
+											<img src="/media/{{user_profile.profile_image}}"
+												style="width: 150px; height: 150px; border-radius: 50%;">
+										</div>
+									</div>
+									<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" style="margin-top: 50px;">
+										<div class="top-left-dtl">
+											<div class="top-left-dtl-one">
+												<h1>{{user_profile.First_name}} {{user_profile.Last_name}}
+													<span class="left-dtl-one-list">
+														<ul>
+															<li><a href="#"><img
+																		src="{% static 'images/mike.png' %}"></a></li>
+															<li><a href="#"><img
+																		src="{% static 'images/guitar.png' %}"></a></li>
+															<li><a href="#"><img
+																		src="{% static 'images/tutor.png' %}"></a></li>
+														</ul>
+													</span>
+												</h1>
+
+												<p style="margin-top: 7px;">{{user_profile.role}}
+													<span>|<span>{{user_profile.gender}}</span>| D.O.B-
+														{{user_profile.day }} : {{user_profile.month }} :
+														{{user_profile.year }}<span></p>
+											</div>
+										</div>
+										<div class="top-left-dtl-second jamming-top-left-dtl">
+											<span><i class="fa fa-map-marker" aria-hidden="true"
+													style="color: #000; margin-top: 15px;"></i> Address: House
+												No., Street, City, State, Country,1010110</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Profile section end -->
+
+						<!-- left side section start -->
+						<div class="col-lg-4 col-md-4 col-sm-12 col-6 pf-rght-col">
+							<div class="home-right-area pf-events">
+								<!-- attending event strat -->
+								<div class="atnd-events">
+									<div class="heading" style="background: #bf9100; ">
+										<h3 class="custom-event">upcoming Events</h3>
+									</div>
+									<div class="home-contact-dtl"
+										style="padding-bottom: 0; overflow: auto; max-height: 300px;">
+										<table>
+
+											{% for event in events %}
+											<tr>
+												<td><img src="{% static 'images/calendar.png' %}">{{event.date}}</td>
+												<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{event.event_title}}</td>
+											</tr>
+											{% endfor %}
+										</table>
+									</div>
+								</div>
+								<!-- attending event end -->
+
+								<!-- upcoming event end -->
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<!-- first row start -->
+
+
+
+				<!-- posts section start -->
+				<div class="row">
+					<div class="col-lg-3 col-md-3 col-sm-12 col-6 pf-rght-col">
+						<div class="home-right-area pf-events">
+
+							<!-- advertisment end -->
+
+							<!-- upcoming event start -->
+							{% if profileupComingEvent %}
+							<div class="home-contact">
+								<div class="golden-heading">
+									<h3>Upcoming Event Details</h3>
+								</div>
+								<div class="home-contact-dtl">
+									<table>
+										<tr>
+											<td><i class="fa fa-phone" aria-hidden="true" style="color: #000;"></i></td>
+											<!-- <td><strong> Phone: </strong></td> -->
+											<td><a href="#"> {{ profileupComingEvent.phone }} </a></td>
+										</tr>
+										<tr>
+											<td><i class="fa fa-envelope" aria-hidden="true" style="color: #000;"></i>
+											</td>
+											<!-- <td><strong> Email: </strong></td> -->
+											<td><a href="#"> {{ profileupComingEvent.email }}</a></td>
+										</tr>
+										<tr>
+											<td><i class="fa fa-map-marker" aria-hidden="true" style="color: #000;"></i>
+												<!-- <td><strong> Address:&nbsp;&nbsp;&nbsp; </strong></td> -->
+											<td>{{ profileupComingEvent.address }}</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+
+							<div class="home-event">
+								<div class="golden-heading" style="margin-top: 40px;">
+									<h3>Upcoming Event</h3>
+								</div>
+								<div class="right-image">
+									<img src="/media/{{ profileupComingEvent.img }}">
+								</div>
+							</div>
+							{% else %}
+							<p>No upcoming events</p>
+							{% endif %}
+
+							<!-- adevertisment start -->
+							<div class="home-advts">
+								<div class="golden-heading">
+									<h3>Advertisements</h3>
+								</div>
+								<div class="right-image">
+									<img src=" /media/{{profileadvertisement.img}} ">
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 pf-middl-col ">
+						<div class="home-middle-area">
+
+							<!-- see all post heading -->
+							<div class="golden-heading">
+								<h3 class="custom-event">See all posts</h3>
+							</div>
+							<br>
+							<!-- share your content start -->
+							<div class="home-posts-wrap profile-posts-wrap">
+
+								{% for obj in user_posts %}
+								<div class="home-posts-wrap">
+									<div class="white-heading" style="text-align:left;">
+										<!-- posting user profile image -->
+										<div class="post-user-detail">
+											<img id="post-user-img" src="/media/{{ user_profile.profile_image }}"
+												alt="">
+											<h3 class="post-user-name">{{ obj.author.first_name }} {{ obj.author.last_name }} </h3>
+											<h5 class="postdate">&nbsp; Posted on :{{obj.created_at}} </h5>
+
+										</div>
+										<!-- posting user profile image -->
+									</div>
+									<div class="posts-images">
+										<img src=" /media/{{obj.img}} " style="height: 400px;">
+										<p> {{obj.about}} </p>
+										<ul>
+											<form action="{% url 'like-post' %}" method="POST" class="ui form">
+												{% csrf_token %}
+												<input type="hidden" name="post_id" value="{{obj.id}}">
+												{% if user.is_authenticated %}
+											{% if user not in obj.liked.all %}
+											<li><button class="custom-icon-images fa fa-thumbs-up" aria-hidden="true"
+													type="submit"></button>Like</li>
+											{% else %}
+											<li><button class="custom-icon-images fa fa-thumbs-down" aria-hidden="true"
+													type="submit"></button>Unlike</li>
+											{% endif %}
+											{% else %}
+											<li>
+												<a href="{% url 'login' %}" class="like-link">
+													<i class="fa fa-thumbs-up" aria-hidden="true"></i> Like
+												</a>
+											</li>
+											{% endif %}
+												<li>{{ obj.liked.all.count }}likes</li>
+												{% if user.is_authenticated %}
+
+											<li><a href="{% url 'Addcomment' obj.id %}"><i class="fa fa-commenting-o"
+														aria-hidden="true" type="button"></i> Comment</a></li>
+														{% else %}
+														<li>
+															<a href="{% url 'login' %}" class="like-link">
+																<i class="fa fa-commenting-o" aria-hidden="true"></i> comment
+															</a>
+														</li>
+											{% endif %}
+												<li><a href="#"><i class="fa fa-share-square-o" aria-hidden="true"
+															type="button" data-toggle="modal"
+															data-target="#shareModal"></i>
+															<span style="color: #3b3b3b">share</span></a></li>
+												{% if user == obj.author %}
+												<li><a href="{% url 'postedit' obj.id %}"><i class="fa fa-edit"
+															aria-hidden="true"></i>Edit</a></li>
+												<li><a href="/postdelete/{{obj.id}}"><button type="button"
+															style="border:0;background:transparent;color:black"
+															onclick="return confirm('Are you sure you want to delete this item?')"><i
+																class="fa fa-trash-o"
+																aria-hidden="true"></i>Delete</button></a></li>
+												{% endif %}
+											</form>
+										</ul>
+									</div>
+								</div>
+								{% endfor %}
+
+
+
+								<!-- Pagination Start -->
+								<div class="pagination-section" style="text-align: center;">
+									<ul class="pagination">
+										<!-- Enclose pagination links in a <ul> element -->
+										{% if user_posts.paginator.num_pages > 1 %}
+											{% if user_posts.has_previous %}
+												<li class="page-item previous-page"><a class="page-link" style="padding-left: 16px;" href="?page=1" tabindex="-1">First</a></li>
+												<li class="page-item previous-page"><a class="page-link" style="padding-left: 14px;" href="?page={{ user_posts.previous_page_number }}" tabindex="-1">Prev</a></li>
+											{% endif %}
+								
+											{% for n in user_posts.paginator.page_range %}
+												{% if user_posts.number == n %}
+													<li class="page-item active"><a class="page-link">{{ n }}</a></li>
+												{% elif n == user_posts.paginator.page_range.start %}
+													<li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+													{% if user_posts.number > n|add:2 %}
+														<li class="page-item dots"><a class="page-link">...</a></li>
+													{% endif %}
+												{% elif n == user_posts.paginator.page_range.stop %}
+													{% if user_posts.number < n|add:-2 %} 
+														<li class="page-item dots"><a class="page-link">...</a></li>
+													{% endif %}
+													<li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+												{% elif n > user_posts.number|add:-2 and n < user_posts.number|add:3 %} 
+													<li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+												{% endif %}
+											{% endfor %}
+								
+											{% if user_posts.has_next %}
+												<li class="page-item next-page"><a class="page-link" style="padding-left: 16px;" href="?page={{ user_posts.next_page_number }}">Next</a></li>
+												<li class="page-item next-page"><a class="page-link" style="padding-left: 16px;" href="?page={{ user_posts.paginator.num_pages }}">Last</a></li>
+											{% endif %}
+										{% endif %}
+									</ul>
+								</div>
+					<!-- Pagination End -->
+
+								<!-- pagination end -->
+							</div>
+
+
+						</div>
+					</div>
+
+					<!-- posts section end -->
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- photo section start -->
+{% if profile_photo_page %}
+<section class="conatiner">
+	<div class="about-heading text-center" style="margin: 30px;">
+		<h1><span>Photo Gallery</span></h1>
+
+		<div class="scrollbar-column">
+			<div class="photo-gallery1 scrollbar-content" style=" overflow-y: auto;">
+
+				{% for obj in profile_photo_page %}
+				<a href="/media/{{obj.image}}" data-lightbox="models" data-title="Caption1" data-alt="Delete">
+
+					<div class="grid-images">
+						<img src="/media/{{obj.image}}" alt="">
+						<!-- <img src="{% static 'images/home-2.jpg' %}" alt=""> -->
+					</div>
+				</a>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</section>
+{% endif %}
+<!-- photo section end -->
+
+<!-- video section start -->
+{% if profile_video_page %}
+<div class="custom-video"
+	style="margin-bottom: 30px;  background: url('{% static 'images/about-gif1.gif' %}') center/cover no-repeat;">
+	<div class="about-heading text-center">
+		<h1><span>Video Gallery</span></h1>
+
+		<div class="row">
+			<div class="container-video ">
+				<div class="main-video">
+					<div class="video">
+						<video src="{% static 'videos/video1.mp4' %}" controls muted autoplay></video>
+						<h3 class="title">01. Videos title goes here</h3>
+					</div>
+				</div>
+
+
+
+				<div class="video-list">
+					{% for obj in profile_video_page %}
+					<div class="vid active">
+						<video src="/media/{{obj.video}}" controls muted></video>
+						<h3 class="title">{{obj.title}}</h3>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
+<!-- video section end -->
+
+
+
+
+<!-- js video section -->
+<script>
+	function handleVideoClick(video) {
+		listVideo.forEach(vid => vid.classList.remove('active'));
+		video.classList.add('active');
+		if (video.classList.contains('active')) {
+			let src = video.children[0].getAttribute('src');
+			mainVideo.src = src;
+			let text = video.children[1].innerHTML;
+			title.innerHTML = text;
+		}
+	}
+
+	let listVideo = document.querySelectorAll('.video-list .vid');
+	let mainVideo = document.querySelector('.main-video video');
+	let title = document.querySelector('.main-video .title');
+
+	listVideo.forEach(video => {
+		video.addEventListener('click', () => {
+			handleVideoClick(video);
+		});
+	});
+</script>
+
+<!-- webpage end -->
+
+
+{% endblock webpage %}

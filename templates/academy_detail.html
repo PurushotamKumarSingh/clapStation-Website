@@ -1,0 +1,863 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Academies Detail| Clap Station
+{% endblock title %}
+
+{% block webpage %}
+{% block head %}
+<style>
+  /* about us */
+  footer{
+    margin-bottom:-50px;
+  }
+  .hero {
+
+    overflow: hidden;
+  }
+
+  .heading h2 {
+    color: #bf9100;
+    font-size: 55px;
+    text-align: start;
+    margin-top: 35px;
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin: 65px auto;
+  }
+
+  .hero-content {
+    flex: 1;
+    width: 600px;
+    margin: 0px 25px;
+  }
+
+  .hero-content .heading h2 {
+    font-size: 38px;
+    margin-bottom: 20px;
+  }
+
+  .hero-content p {
+    font-size: 24px;
+    line-height: 1.5;
+    margin-bottom: 40px;
+    color: #666;
+    text-align: justify;
+  }
+
+  .hero-content .heading button {
+    display: inline-block;
+    background-color: #c8232c;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 5px;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+
+  .hero-content .heading button:hover {
+    background-color: #ff6347;
+    transform: scale(1.1);
+
+  }
+
+  .hero-image {
+    flex: 1;
+    width: 600px;
+    margin: auto;
+  }
+
+  .hero-image {
+    flex: 1;
+    margin: auto;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+
+  @media screen and (max-width:768px) {
+    .heading h2 {
+      font-size: 45px;
+      margin-top: 30px;
+    }
+  
+    
+    .hero {
+      margin: 0;
+    }
+
+    .container {
+      width: 100%;
+      flex-direction: column;
+      margin: 0;
+      padding: 0 40px;
+    }
+
+    .hero-content {
+      width: 100%;
+      margin: 35px 0;
+    }
+
+    .hero-content .heading h2 {
+      font-size: 30px;
+      text-align: center;
+    }
+
+    .hero-content p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .hero-content .heading button {
+      font-size: 16px;
+      padding: 8px 16px;
+    }
+
+    .hero-image {
+      width: 100%;
+    }
+  }
+
+
+  .social-menu {
+    display: flex;
+    justify-content: start;
+  }
+
+  .social-btn {
+    list-style: none;
+    width: 60px;
+    height: 60px;
+    background: #fff;
+    margin: 15px;
+    border-radius: 30%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 10px -5px rgb(255, 255, 255, 0.1);
+    transition: all 0.3s;
+    z-index: 10px;
+  }
+
+  .social-btn a {
+    text-decoration: none;
+    color: #fff;
+  }
+
+  .social-btn:hover a {
+    color: #fff;
+  }
+
+  .social-menu .social-btn::before {
+    content: attr(tooltip);
+    position: absolute;
+    top: 0;
+    font-size: 0.9em;
+    font-weight: bold;
+    z-index: -1;
+    opacity: 0;
+    pointer-events: auto;
+    background: #fff;
+    padding: 10px;
+    color: #000;
+    letter-spacing: 1px;
+    transition: all 0.3s ease-out;
+  }
+
+  .social-menu .social-btn::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    top: 0;
+    opacity: 0;
+    background: #fff;
+    transform: rotate(45deg);
+    left: 20%;
+    z-index: -2;
+    transition:
+      all 0.3s ease-out;
+  }
+
+  .social-menu .social-btn:hover::before {
+    top: -45px;
+    opacity: 1;
+  }
+
+  .social-btn:hover::after {
+    top: -12px;
+    opacity: 1;
+  }
+
+  .facebook a {
+    color: #3b5999;
+  }
+
+  .facebook:hover,
+  .facebook:hover .social-btn:before,
+  .facebook:hover .social-btn:after {
+    background: #3b5999;
+  }
+
+  .instagram a {
+    color: #962fbf;
+  }
+
+  .instagram:hover,
+  .instagram:hover .social-btn:before,
+  .instagram:hover .social-btn:after {
+    background: #962fbf;
+  }
+
+  .pinterest a {
+    color: #c8232c;
+  }
+
+  .pinterest:hover,
+  .pinterest:hover .social-btn:before,
+  .pinterest:hover .social-btn:after {
+    background: #c8232c;
+  }
+
+  .linkedin a {
+    color: #0072b1;
+  }
+
+  .linkedin:hover,
+  .linkedin:hover .social-btn:before,
+  .linkedin:hover .social-btn:after {
+    background: #0072b1;
+  }
+
+
+  /* fee structure section */
+  .price-container {
+    display: flex;
+    flex-wrap: nowrap;
+    /* Ensure items don't wrap to the next line */
+    justify-content: space-around;
+    /* Adjust as needed */
+    margin-top: 22px;
+    margin-left: -50px;
+  }
+
+  .price-section {
+    width: 100%;
+    margin-right: 20px;
+    color: #fff;
+  }
+
+  .price-table {
+    background-color: #bf9100;
+    border-radius: 16px;
+    max-width: 355px;
+    margin-left: 80px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 15px 45px 0 #bf9100;
+    position: relative;
+    background-image: linear-gradient(135deg, #bf9100, #bf9100 20%, #bf9100 40%, #bf9100 100%);
+  }
+
+  .price-table:after {
+    content: "";
+    display: block;
+    top: -3px;
+    left: -3px;
+    bottom: -3px;
+    right: -3px;
+    z-index: -1;
+    position: absolute;
+    border-radius: 16px;
+    background-image: linear-gradient(135deg, #4ade80, #1d7bdb 40%, #293359 60%, #bf9100 100%);
+  }
+
+  .price-table .price {
+    font-size: 3rem;
+    line-height: 1;
+    font-weight: 700;
+    display: inline-flex;
+    align-self: center;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+    color: #fff;
+  }
+
+  .price-table .price small {
+    font-size: 1.25rem;
+    font-weight: 400;
+    position: absolute;
+    left: -1.5ch;
+  }
+
+  .price-table .title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.25;
+    text-align: center;
+    margin-top: 10px;
+    color: #fff;
+  }
+
+  .price-table .description {
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 2px;
+  }
+
+  .features {
+    margin-top: 22px;
+  }
+
+  .feature {
+    position: relative;
+  }
+
+  .feature+.feature {
+    margin-top: 16px;
+  }
+
+  .feature summary {
+    display: inline-flex;
+    align-items: center;
+    list-style: none;
+  }
+
+  .feature summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .feature[open] summary:after {
+    content: "";
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    z-index: 50;
+  }
+
+  .feature[open] div {
+    -webkit-animation: scale 0.15s ease;
+    animation: scale 0.15s ease;
+  }
+
+  .feature .checkmark {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #4ade80;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+  }
+
+  .feature .checkmark svg {
+    width: 18px;
+    height: 18px;
+    color: #fff;
+  }
+
+  .feature .question-icon {
+    display: flex;
+    align-items: center;
+    margin-left: 6px;
+    cursor: pointer;
+  }
+
+  .feature .answer {
+    padding: 12px;
+    background-color: #111b40;
+    border-radius: 6px;
+    position: absolute;
+    top: -12px;
+    z-index: 100;
+    transform: translatey(-100%) translatex(-50%);
+    transform-origin: bottom center;
+    width: 80%;
+    left: 50%;
+    border: 1px solid #293359;
+    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  @-webkit-keyframes scale {
+    0% {
+      transform: translatey(-100%) translatex(-50%) scale(0);
+    }
+
+    100% {
+      transform: translatey(-100%) translatex(-50%) scale(1);
+    }
+  }
+
+  @keyframes scale {
+    0% {
+      transform: translatey(-100%) translatex(-50%) scale(0);
+    }
+
+    100% {
+      transform: translatey(-100%) translatex(-50%) scale(1);
+    }
+  }
+
+  /* image gallery  */
+  body,
+  .parent-container,
+  .child-container {
+    display: flex;
+  }
+
+  .parent-container {
+    width: 100%;
+    justify-content: center;
+    gap: 30px 30px;
+    margin-bottom: 40px;
+  }
+
+  .child-container {
+    width: 30%;
+    height: auto;
+    gap: 30px 30px;
+    flex-direction: column;
+  }
+
+  .child-container img {
+    transition: all 1s ease-in-out 0s;
+    box-shadow: 2px 2px 20px gray, inset 2px 2px 10px lightgray;
+  }
+
+  .child-container img:hover {
+    box-shadow: 4px 4px 25px black, inset 2px 2px 2px 10px rgb(0, 0, 20);
+
+  }
+
+
+  .flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    /* Change height to auto for responsiveness */
+    flex-wrap: wrap;
+    /* Allow cards to wrap when screen size is reduced */
+  }
+
+  .card {
+    width: 326px;
+    height: 400px;
+    border-radius: 16px;
+    margin: 20px;
+    overflow: hidden;
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.315);
+    background-color: white;
+  }
+
+  .card-header {
+    width: 100%;
+    height: 150px;
+    display: block;
+    
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid var(--light-gray);
+  }
+
+  .card-body-img {
+    height: 200px;
+    width: 200px;
+    /* width: 90%; */
+    border-radius: 50%;
+    border: 5px solid white;
+    margin-top: calc(-48px - 5px);
+    background-color: white;
+}
+
+  .card-body-title {
+    margin: 0;
+    margin-top: 2rem;
+    font-size: 1.8rem;
+    color: var(--very-dark-desaturated-blue);
+  }
+
+  .card-body-title span {
+    color: var(--dark-gray);
+    font-weight: 400;
+  }
+
+  .card-body-text {
+    color: var(--dark-gray);
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .card-footer-social {
+    text-align: center;
+  }
+
+  .card-footer-social h3 {
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+    color: var(--very-dark-desaturated-blue);
+  }
+
+  .card-footer-social p {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 2rem;
+    letter-spacing: 1px;
+    color: var(--dark-gray);
+  }
+
+  /* Media queries for responsiveness */
+
+  @media only screen and (max-width: 768px) {
+    .card {
+      width: 100%;
+      /* Make cards full width on smaller screens */
+      max-width: 300px;
+      /* Limit maximum width */
+    }
+  }
+
+
+
+
+  /* photo section start */
+  section {
+    background: url('{% static "images/about-gif1.gif" %}') center/cover no-repeat;
+  }
+
+  .about-heading h1 {
+    padding-top: 50px;
+    margin-bottom: 50px;
+  }
+
+  .photo-gallery1 {
+    columns: 4;
+    column-gap: 16px;
+  }
+
+  .grid-images {
+    display: inline-block;
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .grid-images img {
+    width: 100%;
+    border-radius: 5px;
+  }
+
+  @media(max-width:1200px) {
+    .photo-gallery1 {
+      columns: 3;
+    }
+  }
+
+  @media(max-width:992px) {
+    .photo-gallery1 {
+      columns: 2;
+    }
+  }
+
+  @media(max-width:767px) {
+    .photo-gallery1 {
+      columns: 1;
+    }
+  }
+
+  .scrollbar-column {
+    overflow-y: auto;
+    height: 400px;
+    display: grid;
+    flex-direction: row-reverse;
+  }
+
+  .scrollbar-content {
+    overflow-y: scroll;
+    padding-right: 1%;
+    width: calc(100% - 20px);
+  }
+
+  .scrollbar-content::-webkit-scrollbar {
+    border-radius: 10px;
+    width: 10px;
+    background-color: #ccc;
+  }
+
+  .scrollbar-content::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+  }
+
+  h1 {
+    text-align: center;
+    color: #fff;
+    margin-top: 100px;
+    margin-bottom: 50px;
+  }
+
+  footer {
+    margin-top: 50px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .price-container {
+      display: grid;
+      width: 100%;
+    }
+
+    .price-table {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  }
+
+  /* crousel */
+  .centered-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .centered-image img {
+    max-width: 100%;
+    max-height: 100%;
+    width: 80%;
+    height: 600px;
+  }
+
+  .carousel-name {
+    background: #f0f0f0;
+  }
+</style>
+{% endblock head %}
+
+<!-- about section  -->
+<section class="hero" style="margin-top: 90px; height: auto;">
+
+  <div class="container">
+    <div class="hero-content">
+      <div class="heading">
+        <h2>{{academic.academic_title}}</h2>
+      </div>
+      <p>{{academic.description}}</p>
+      <ul class="social-menu">
+        <li class="social-btn facebook" tooltip="Facebook">
+          <a href="{{academic.facebook}}"><ion-icon name="logo-facebook" size="large"></ion-icon></a>
+        </li>
+        <li class="social-btn instagram" tooltip="Instagram">
+          <a href="{{academic.instagram}}"><ion-icon name="logo-instagram" size="large"></ion-icon></a>
+        </li>
+
+        <li class="social-btn linkedin" tooltip="LinkedIn">
+          <a href="{{academic.linkedin}}"><ion-icon name="logo-linkedin" size="large"></ion-icon></a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="hero-image">
+      <img src="/media/{{academic.poster2}}" alt="">
+    </div>
+  </div>
+</section>
+
+
+
+<!-- fee structure section -->
+<h1><u>Fee Structure</u></h1>
+<div class="price-container">
+  {% for obj in academicfee %}
+  <div class="price-section">
+    <article class="price-table">
+      <div class="price">Rs {{obj.price}}</div>
+      <span class="title">Music Section</span>
+      <div class="features">
+
+        <details class="feature">
+          <summary>
+            <i aria-hidden="true" class="checkmark">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                <path fill="none" d="M0 0h24v24H0z"></path>
+                <path fill="currentColor" d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z"></path>
+              </svg>
+            </i>
+            <span class="name">{{obj.functionality1}}</span>
+
+          </summary>
+          <div class="answer">
+            You will gain access to every future update.
+          </div>
+        </details>
+        <details class="feature">
+          <summary>
+            <i aria-hidden="true" class="checkmark">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                <path fill="none" d="M0 0h24v24H0z"></path>
+                <path fill="currentColor" d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z"></path>
+              </svg>
+            </i>
+            <span class="name">{{obj.functionality2}} Singing</span>
+
+          </summary>
+          <div class="answer">
+            Create as many projects as you want.
+          </div>
+        </details>
+        <details class="feature">
+          <summary>
+            <i aria-hidden="true" class="checkmark">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                <path fill="none" d="M0 0h24v24H0z"></path>
+                <path fill="currentColor" d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z"></path>
+              </svg>
+            </i>
+            <span class="name">{{obj.functionality3}}</span>
+
+          </summary>
+          <div class="answer">
+            Keep your files for easy access and management. 5GB space included. Scale when necessary.
+          </div>
+        </details>
+        <details class="feature">
+          <summary>
+            <i aria-hidden="true" class="checkmark">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                <path fill="none" d="M0 0h24v24H0z"></path>
+                <path fill="currentColor" d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z"></path>
+              </svg>
+            </i>
+            <span class="name">{{obj.functionality3}}</span>
+
+          </summary>
+          <div class="answer">
+            Get help and learn new things in our community Slack with over 5,000 contributors.
+          </div>
+        </details>
+
+      </div>
+    </article>
+  </div>
+  {% endfor %}
+
+
+</div>
+
+
+<!-- gallery section -->
+<h1><u>Gallery</u></h1>
+<div class="container-fluid" style="margin-top: 80px; margin-bottom: 50px;">
+  <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+
+    <div class="carousel-inner" role="listbox">
+      {% for i in academicimage %}
+      <div class="item {% if forloop.counter0 == 0 %} active {% endif %} ">
+        <div class="centered-image">
+          <img src="{{i.image.url}}" alt="...">
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- Controls -->
+      <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <i class="fa fa-chevron-left" aria-hidden="true" style="margin-top: 100%;"></i>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <i class="fa fa-chevron-right" aria-hidden="true" style="margin-top: 100%;"></i>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+  <br>
+
+
+  <!-- mentor details -->
+  <h1 style="text-align: center;color:#fff;"><u>Mentor Details</u></h1>
+
+
+  <div class="flex">
+    {% for obj in academicmentor %}
+    <article class="card">
+      <img src="{% static "images/about-gif1.gif" %}" class="card-header">
+      <div class="card-body">
+        <img src="/media/{{obj.mentor_image}}" alt="Card Avatar" class="card-body-img">
+        <h1 class="card-body-title"><b>{{obj.mentor_name}}</b></h1>
+        <p class="card-body-text">{{obj.mentor_profession}}</p>
+      </div>
+      <div class="card-footer">
+
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+
+
+
+
+  {% endblock webpage %}
+
+  {% block JS %}
+
+  <script src=" {% static 'js/jquery.js' %}" type="text/javascript"></script>
+  <script src=" {% static 'js/popper.min.js' %}" type="text/javascript"></script>
+  <script src=" {% static 'js/bootstrap.min.js' %}" type="text/javascript"></script>
+  <script src=" {% static 'js/datelocal.js' %}"></script>
+  <script type="text/javascript" src=" {% static 'js/bootstrap-datetimepicker.js' %}"></script>
+  <script src=" {% static 'js/owl.carousel.min.js' %}"></script>
+  <script src=" {% static 'js/custom.js' %}" type="text/javascript"></script>
+
+
+  <script type="text/javascript">
+    $(function () {
+      $('.toggle-menu').click(function () {
+        $('.exo-menu').toggleClass('display');
+      });
+    });
+    $(document).ready(function () {
+      $(".toggle-menu").click(function () {
+        $(".mobile-close").show(400);
+      });
+      $(".mobile-close").click(function () {
+        $(".exo-menu").removeClass('display');
+        $(this).hide(400);
+      });
+    });
+
+
+    $(".hover").mouseleave(
+      function () {
+        $(this).removeClass("hover");
+      }
+    );
+  </script>
+
+  {% endblock JS %}

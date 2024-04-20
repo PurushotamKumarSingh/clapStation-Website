@@ -1,0 +1,1400 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Groups | Clap Station
+{% endblock title %}
+
+{% block head %}
+<style>
+	.profile-icon button i {
+		margin-right: 0px;
+		right: 30px;
+	}
+
+	/* group 2 */
+	.mod-input-area input {
+		border-radius: 10px;
+		border: 1px solid #bf9100;
+	}
+
+	section {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-height: auto;
+		margin-top: 30px;
+		background: url('{% static 'images/about-gif1.gif' %}') center/cover no-repeat;
+	}
+
+	.btn {
+		background: none;
+		padding: 0 0;
+	}
+
+	.group-dropdown-menu {
+		margin-top: -45px;
+		margin-left: -580%;
+	}
+
+	@media (max-width:1024px) {
+		.group-dropdown-menu {
+			margin-top: -45px;
+			margin-left: -580%;
+			height: 95px;
+			background: #bf9100;
+		}
+	}
+
+	@media (max-width:991px) {
+		.group-dropdown-menu {
+			margin-top: -45px;
+			margin-left: -580%;
+			height: 95px;
+			background: #bf9100;
+		}
+	}
+
+	.group-heading {
+		position: absolute;
+		text-align: center;
+		top: 0;
+		margin-top: 0px;
+	}
+
+	.group-para {
+		position: absolute;
+		text-align: justify;
+		top: 140px;
+		font-size: 2.0rem;
+		font-weight: 500;
+	}
+
+	.group-containers {
+		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 80px 50px;
+		padding: 300px 50px 70px;
+	}
+
+	.group-containers .card {
+		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: flex-start;
+		width: 350px;
+		height: 300px;
+		background: #bf9100;
+		border-radius: 20px;
+		box-shadow: 0 35px 80px rgba(0, 0, 0, 0.15);
+		transition: 0.5s;
+	}
+
+	.group-containers .card:hover {
+		height: 400px;
+		margin-top: 20px;
+	}
+
+	@media(max-width: 1290px) {
+		.group-containers .card:hover {
+			margin-top: 40px;
+		}
+
+		.group-para {
+			width: 90%;
+		}
+	}
+
+	@media(max-width: 996px) {
+		.group-containers .card:hover {
+			margin-top: 80px;
+		}
+	}
+
+	@media(max-width: 767px) {
+		.group-containers .card {
+			margin-top: 70px;
+		}
+
+		.group-containers .card:hover {
+			margin-top: 90px;
+		}
+	}
+
+	@media(max-width: 640px) {
+		.group-containers .card {
+			margin-top: 100px;
+		}
+
+		.group-containers .card:hover {
+			margin-top: 140px;
+		}
+	}
+
+	@media screen and (min-width: 376px) and (max-width: 639px) {
+		.group-containers .card1 {
+			margin-top: 230px;
+		}
+
+		.group-containers .card:hover {
+			margin-top: 250px;
+		}
+	}
+
+	@media (max-width: 447px) {
+		.group-para {
+			width: 70%;
+		}
+
+		.group-containers .card1 {
+			margin-top: 240px;
+		}
+
+		.group-containers .card:hover {
+			margin-top: 290px;
+		}
+	}
+
+	@media (max-width: 375px) {
+		.group-para {
+			width: 70%;
+		}
+
+		.group-containers .card1 {
+			margin-top: 350px;
+		}
+
+		.group-containers .card:hover {
+			margin-top: px;
+		}
+	}
+
+	.group-containers .card .imgBx {
+		position: absolute;
+		top: 20px;
+		width: 300px;
+		height: 220px;
+		background: #fff;
+		border-radius: 12px;
+		overflow: hidden;
+		transition: 0.5s;
+	}
+
+	.group-containers .card:hover .imgBx {
+		top: -100px;
+		scale: 0.75;
+		box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+	}
+
+	.group-containers .card .imgBx img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.group-containers .card .content {
+		color: #fff;
+		position: absolute;
+		top: 252px;
+		width: 100%;
+		padding: 0 30px;
+		height: 45px;
+		overflow: hidden;
+		text-align: center;
+		transition: 0.5s;
+	}
+
+	.group-containers .card:hover .content {
+		color: #fff;
+		top: 150px;
+		height: 250px;
+	}
+
+	.group-containers .card .content h2 {
+		color: #fff;
+		font-size: 1.7rem;
+		font-weight: 700;
+		/* color: var(--clr); */
+	}
+
+	.group-containers .card .content p {
+		font-size: 1.7rem;
+		font-weight: 500;
+	}
+
+	.group-containers .card .content a {
+		position: relative;
+		top: 20px;
+		display: inline-block;
+		background: #fff7bf;
+		color: #bf0064;
+		font-weight: 500;
+		text-decoration: none;
+		border-radius: 8px;
+	}
+
+	.group-containers .card .content i {
+		color: #bf0064;
+	}
+
+	.group-containers .card .content .more-content {
+		position: relative;
+		top: 40px;
+		display: inline-block;
+		padding: 12px 25px;
+		background: #fff7bf;
+		color: #bf0064;
+		font-weight: 500;
+		text-decoration: none;
+		border-radius: 8px;
+	}
+
+	.icon-containers {
+		position: absolute;
+		top: 20px;
+		right: 50px;
+	}
+
+	.info-social {
+		font-size: 25px;
+		color: #ccc;
+		display: flex;
+		justify-content: center;
+		column-gap: 1rem;
+	}
+
+	.info-social-link {
+		width: 35px;
+		height: 35px;
+		background-color: #bf9100;
+		border-radius: 50%;
+		display: grid;
+		place-items: center;
+	}
+
+	.info-social-link:hover {
+		transform: translateY(-.50rem);
+	}
+
+	.sprofession {
+		padding: 8px 10px 8px 10px;
+		width: 100%;
+		border-radius: 10px;
+		border: 1px solid #bf9100;
+	}
+
+	@media (max-width: 375px) {
+		.group-containers .card {
+			width: 245px;
+		}
+
+		.group-containers .card .imgBx {
+			width: 200px;
+		}
+	}
+
+/* pagination */
+.pagination>li:first-child>a{
+    margin-left: 0;
+	padding: 6px 24px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #bf9100;
+    color: #fff;
+}
+.pagination>li:last-child>a{
+    margin-left: 5px;
+	padding: 6px 24px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #bf9100;
+    color: #fff;
+}
+
+.pagination>li>a, .pagination>li>span {
+    position: relative;
+    float: left;
+    padding: 6px 24px;
+    margin-left: 5px;
+	line-height: 45px;
+    color: #fff;
+    text-decoration: none;
+    background-color: #bf9100;
+    border: 1px solid #ddd;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.pagination>.active>a, .pagination>.active>a:hover{
+    z-index: 2;
+    color: #000;
+    cursor: default;
+    background-color: #ccc;
+    border-color: #bf9100;
+}
+
+/* pagination */
+
+	.modal-header .close {
+		margin-top: -40px;
+		font-size: 40px;
+	}
+
+	.odd-box{
+		margin-top: 10px; 
+		margin-left: -15px;
+	}
+	.linked-box{
+		margin-top: 10px; 
+		margin-left: -297px;
+		width: 105%;
+	}
+	.fb-box{
+		margin-top: -37px; 
+		margin-left: -15px
+	}
+	@media(max-width: 991px){
+		.linked-box {
+			margin-top: 10px;
+			margin-left: -13px;
+			width: 103%;
+		}
+	}
+
+	@media(max-width: 340px){
+		.modal-content {
+			width: 100%;
+		}
+		.odd-box,
+		.fb-box,
+		.linked-box{
+			width: 85%;
+		}
+		.desc-box{
+			width: 77%;
+		}
+	}
+</style>
+{% endblock head %}
+
+{% block webpage %}
+
+<!--webpage-->
+
+<div>
+	{% if messages %}
+	<div style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); padding: 15px; border-radius: 5px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; width: 300px; text-align: center; z-index: 2;">
+    <span style="cursor: pointer; float: right; margin-top: -5px; margin-right: -5px; font-size: 20px; font-weight: bold;" onclick="this.parentElement.style.display='none'">&times;</span>
+
+    {% for message in messages %}
+        {{ message }}<br>
+    {% endfor %}
+</div>
+{% endif %}
+</div>
+
+<div class="webpage page-artist" style="margin-top: 100px;margin-bottom: 30px;">
+	<div class="container-fluid">
+
+		<!-- Create a Group strat -->
+		<div class="artist-top-strip">
+			<div class="row">
+				<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 artist-title-col">
+					{% if user.is_authenticated and user_info.role != "Individual"  %}
+					    
+					
+					<div class="group-crte-btn" style="margin-left: 45px; margin-bottom: -25px;">
+
+						<button class="cmmn-btn slowHover" type="button" data-toggle="modal"
+							data-target="#createagroupModal"><img src=" {% static 'images/groups-1.png' %}"> Create a
+							Group</button>
+					</div>
+
+					{% endif %}
+					<!-- create-profile-modal start -->
+					<div id="createagroupModal"
+						class="edit-profile-modal edit-a-group-modal create-a-group-modal modal fade" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">CREATE A GROUP</h4>
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+								</div>
+
+								<div class="modal-body">
+									<form action="{% url 'groups' %}" method="post" enctype="multipart/form-data">
+										{% csrf_token %}
+										<div class="row ">
+											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+												<div class="mod-comm-wrap mod-event">
+
+													<h3 style="color: black;">Add Details : </h3>
+
+													<div class="row">
+														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<div class="mod-input-area" style="margin-top: 20px;">
+																<input type="text" placeholder="Group Name"
+																	name="Groupname">
+															</div>
+														</div>
+													</div>
+
+													<div class="row">
+														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<div class="mod-event-table">
+																<table style="width:100%;">
+
+																	<!-- artist name -->
+																	<tr>
+																		<td>
+																			<h3 style="color: #3333336b;">Member 1 :
+																			</h3>
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area odd-box">
+
+																					<input type="text"
+																						placeholder="Enter Your Name"
+																						name="sname">
+																				</div>
+																			</div>
+
+																			<div
+																				class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+																				<div
+																					class="mod-image-wrap mod-comm-wrap">
+																					<div class="mod-btn"
+																						style="margin-top: 10px;">
+																						<div class="box">
+																							<input type="file"
+																								name="simage"
+																								id="file-1"
+																								class="inputfile inputfile-1"
+																								data-multiple-caption="{count} files selected"
+																								multiple=""
+																								onchange="readURL(this);">
+																							<label for="file-1"><i
+																									class="fa fa-cloud-upload"
+																									aria-hidden="true"></i>
+																								<span>Upload
+																									Photo</span></label>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area odd-box">
+
+																					<select name="sprofession"
+																						id="sprofession" type="text"
+																						class="sprofession">
+																						<option value="" selected
+																							disabled>Select Your
+																							Profession</option>
+																						<option value="Singer">Singer
+																						</option>
+																						<option value="Musician">
+																							Musician</option>
+																						<option value="Guitarist">
+																							Guitarist</option>
+																						<option value="Singer">Vocalist
+																						</option>
+																						<option value="Musician">Dancer
+																						</option>
+
+																					</select>
+																				</div>
+																			</div>
+
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area odd-box">
+
+																					<input type="text"
+																						placeholder="Enter Your Address"
+																						name="saddress">
+																				</div>
+																			</div>
+
+
+
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area linked-box">
+
+																					<input type="text"
+																						placeholder="Enter Your linkedin I'd Link"
+																						name="slinkedin">
+																				</div>
+																			</div>
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area odd-box">
+
+																					<input type="text"
+																						placeholder="Enter Your instagram I'd Link"
+																						name="sinstagram">
+																				</div>
+																			</div>
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area fb-box">
+
+																					<input type="text"
+																						placeholder="Enter Your Facebook I'd Link"
+																						name="sgithub">
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+
+																	<!-- musician -->
+																	<tr>
+																		<td>
+																			<h3
+																				style="color: #3333336b; margin-top: 5px;">
+																				Member 2 : </h3>
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area odd-box">
+
+																					<input type="text"
+																						placeholder="Enter Your Name"
+																						name="mname">
+																				</div>
+																			</div>
+
+																			<div
+																				class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+																				<div
+																					class="mod-image-wrap mod-comm-wrap">
+																					<div class="mod-btn"
+																						style="margin-top: 10px;">
+																						<div class="box">
+																							<input type="file"
+																								name="mimage"
+																								id="file-1"
+																								class="inputfile inputfile-1"
+																								data-multiple-caption="{count} files selected"
+																								multiple=""
+																								onchange="readURL(this);">
+																							<label for="file-1"><i
+																									class="fa fa-cloud-upload"
+																									aria-hidden="true"></i>
+																								<span>Upload
+																									Photo</span></label>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area odd-box">
+
+																					<select name="mprofession"
+																						id="sprofession" type="text"
+																						class="sprofession">
+																						<option value="" selected
+																							disabled>Select Your
+																							Profession</option>
+																						<option value="Singer">Singer
+																						</option>
+																						<option value="Musician">
+																							Musician</option>
+																						<option value="Guitarist">
+																							Guitarist</option>
+																						<option value="Singer">Vocalist
+																						</option>
+																						<option value="Musician">Dancer
+																						</option>
+
+																					</select>
+																				</div>
+																			</div>
+
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area odd-box">
+
+																					<input type="text"
+																						placeholder="Enter Your Address"
+																						name="maddress">
+																				</div>
+																			</div>
+
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area linked-box">
+
+																					<input type="text"
+																						placeholder="Enter Your linkedin I'd Link"
+																						name="mlinkedin">
+																				</div>
+																			</div>
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area odd-box">
+
+																					<input type="text"
+																						placeholder="Enter Your instagram I'd Link"
+																						name="minstagram">
+																				</div>
+																			</div>
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area fb-box">
+
+																					<input type="text"
+																						placeholder="Enter Your Facebook I'd Link"
+																						name="mgithub">
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+
+
+																	<!-- Guitarist name -->
+																	<tr>
+																		<td>
+																			<h3
+																				style="color: #3333336b; margin-top: 5px;">
+																				Member 3 : </h3>
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area odd-box">
+
+																					<input type="text"
+																						placeholder="Enter Your Name"
+																						name="gname">
+																				</div>
+																			</div>
+
+																			<div
+																				class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+																				<div
+																					class="mod-image-wrap mod-comm-wrap">
+																					<div class="mod-btn"
+																						style="margin-top: 10px;">
+																						<div class="box">
+																							<input type="file"
+																								name="gimage"
+																								id="file-1"
+																								class="inputfile inputfile-1"
+																								data-multiple-caption="{count} files selected"
+																								multiple=""
+																								onchange="readURL(this);">
+																							<label for="file-1"><i
+																									class="fa fa-cloud-upload"
+																									aria-hidden="true"></i>
+																								<span>Upload
+																									Photo</span></label>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area odd-box">
+
+																					<select name="gprofession"
+																						id="sprofession" type="text"
+																						class="sprofession">
+																						<option value="" selected
+																							disabled>Select Your
+																							Profession</option>
+																						<option value="Singer">Singer
+																						</option>
+																						<option value="Musician">
+																							Musician</option>
+																						<option value="Guitarist">
+																							Guitarist</option>
+																						<option value="Singer">Vocalist
+																						</option>
+																						<option value="Musician">Dancer
+																						</option>
+
+																					</select>
+																				</div>
+																			</div>
+
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area odd-box">
+
+																					<input type="text"
+																						placeholder="Enter Your Address"
+																						name="gaddress">
+																				</div>
+																			</div>
+
+
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area linked-box">
+
+																					<input type="text"
+																						placeholder="Enter Your linkedin I'd Link"
+																						name="glinkedin">
+																				</div>
+																			</div>
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area odd-box">
+
+																					<input type="text"
+																						placeholder="Enter Your instagram I'd Link"
+																						name="ginstagram">
+																				</div>
+																			</div>
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area fb-box">
+
+																					<input type="text"
+																						placeholder="Enter Your Facebook I'd Link"
+																						name="ggithub">
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+
+																	<!-- Discription -->
+																	<tr>
+																		<td>
+																			<div class="mod-input-area desc-box"
+																				style="margin-top: 10px;">
+																				<textarea type="text"
+																					placeholder="Description"
+																					name="Description"
+																					style="color: #000;"></textarea>
+																			</div>
+																		</td>
+																	</tr>
+
+																</table>
+															</div>
+														</div>
+													</div>
+
+												</div>
+											</div>
+										</div>
+
+										<div class="modal-footer"
+											style="text-align: center; justify-content: space-between;">
+											<button class="cmmn-btn slowHover" type="submit"
+												style="margin-right: 20px;"><img
+													src="{% static 'images/mod-save.jpg' %}" alt="">SAVE</button>
+										</div>
+
+									</form>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<!-- create-profile-modal end-->
+					<!-- edit-profile-modal start -->
+					{% for obj in group_page %}
+					<div id="editgroupModal-{{forloop.counter}}"
+						class="edit-profile-modal edit-a-group-modal create-a-group-modal modal fade" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">EDIT YOUR GROUP</h4>
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+								</div>
+
+								<div class="modal-body">
+									<form action="/groupupdate/{{obj.id}}" method="post" enctype="multipart/form-data">
+										{% csrf_token %}
+										<div class="row ">
+											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+												<div class="mod-comm-wrap mod-event">
+
+													<h3 style="color: black;">Add Details : </h3>
+
+													<div class="row">
+														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<div class="mod-input-area" style="margin-top: 20px;">
+																<input type="text" placeholder="Group Name"
+																	name="Groupname" value="{{obj.groupname}}">
+															</div>
+														</div>
+													</div>
+
+													<div class="row">
+														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<div class="mod-event-table">
+																<table style="width:100%;">
+
+																	<!-- artist name -->
+																	<tr>
+																		<td>
+																			<h3
+																				style="color: #3333336b; margin-top: 5px;">
+																				Member 1 : </h3>
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area odd-box">
+
+																					<input type="text"
+																						placeholder="Enter Your Name"
+																						name="sname"
+																						value="{{obj.singername}}">
+																				</div>
+																			</div>
+
+
+																			<div
+																				class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+																				<div
+																					class="mod-image-wrap mod-comm-wrap">
+																					<div class="mod-btn"
+																						style="margin-top: 10px;">
+																						<div class="box">
+																							<input type="file"
+																								name="simage"
+																								id="file-1"
+																								value="{{obj.singerimage}}"
+																								class="inputfile inputfile-1"
+																								data-multiple-caption="{count} files selected"
+																								multiple=""
+																								onchange="readURL(this);">
+																							<label for="file-1"><i
+																									class="fa fa-cloud-upload"
+																									aria-hidden="true"></i>
+																								<span>Upload
+																									Photo</span></label>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+
+
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area odd-box">
+																					<select name="sprofession"
+																						class="sprofession">
+																						<option
+																							value="{{obj.singerprofession}}">
+																							{{obj.singerprofession}}
+																						</option>
+																						<option value="Singer">Singer
+																						</option>
+																						<option value="Musician">
+																							Musician</option>
+																						<option value="Guitarist">
+																							Guitarist</option>
+																						<option value="Vocalist">
+																							Vocalist</option>
+																						<option value="Dancer">Dancer
+																						</option>
+																					</select>
+
+																				</div>
+																			</div>
+
+
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area odd-box">
+
+																					<input type="text"
+																						placeholder="Enter Your Address"
+																						name="saddress"
+																						value="{{obj.singeraddress}}">
+																				</div>
+																			</div>
+
+
+
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area linked-box">
+
+																					<input type="text"
+																						placeholder="Enter Your linkedin I'd Link"
+																						name="slinkedin"
+																						value="{{obj.singerlinkedinid}}">
+																				</div>
+																			</div>
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area odd-box">
+
+																					<input type="text"
+																						placeholder="Enter Your instagram I'd Link"
+																						name="sinstagram"
+																						value="{{obj.singerinstagramid}}">
+																				</div>
+																			</div>
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area fb-box">
+
+																					<input type="text"
+																						placeholder="Enter Your Facebook I'd Link"
+																						name="sgithub"
+																						value="{{obj.singergithubid}}">
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+
+																	<!-- musician -->
+																	<tr>
+																		<td>
+																			<h3
+																				style="color: #3333336b; margin-top: 5px;">
+																				Member 2 : </h3>
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area odd-box">
+
+																					<input type="text"
+																						placeholder="Enter Your Name"
+																						name="mname"
+																						value="{{obj.musicianname}}">
+																				</div>
+																			</div>
+
+
+
+																			<div
+																				class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+																				<div
+																					class="mod-image-wrap mod-comm-wrap">
+																					<div class="mod-btn"
+																						style="margin-top: 10px;">
+																						<div class="box">
+																							<input type="file"
+																								name="mimage"
+																								id="file-1"
+																								value="{{obj.musicianimage}}"
+																								class="inputfile inputfile-1"
+																								data-multiple-caption="{count} files selected"
+																								multiple=""
+																								onchange="readURL(this);">
+																							<label for="file-1"><i
+																									class="fa fa-cloud-upload"
+																									aria-hidden="true"></i>
+																								<span>Upload
+																									Photo</span></label>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area odd-box">
+																					<select name="mprofession"
+																						class="sprofession">
+																						<option
+																							value="{{obj.musicianprofession}}">
+																							{{obj.musicianprofession}}
+																						</option>
+																						<option value="Singer">Singer
+																						</option>
+																						<option value="Musician">
+																							Musician</option>
+																						<option value="Guitarist">
+																							Guitarist</option>
+																						<option value="Vocalist">
+																							Vocalist</option>
+																						<option value="Dancer">Dancer
+																						</option>
+																					</select>
+
+																				</div>
+																			</div>
+
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area odd-box">
+
+																					<input type="text"
+																						placeholder="Enter Your Address"
+																						name="maddress"
+																						value="{{obj.musicianaddress}}">
+																				</div>
+																			</div>
+
+
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area linked-box">
+
+																					<input type="text"
+																						placeholder="Enter Your linkedin I'd Link"
+																						name="mlinkedin"
+																						value="{{obj.musicianlinkedinid}}">
+																				</div>
+																			</div>
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area odd-box">
+
+																					<input type="text"
+																						placeholder="Enter Your instagram I'd Link"
+																						name="minstagram"
+																						value="{{obj.musicianinstagramid}}">
+																				</div>
+																			</div>
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area fb-box">
+
+																					<input type="text"
+																						placeholder="Enter Your Github I'd Link"
+																						name="mgithub"
+																						value="{{obj.musiciangithubid}}">
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																	<!-- Guitarist name -->
+																	<tr>
+																		<td>
+																			<h3
+																				style="color: #3333336b; margin-top: 5px;">
+																				Member 3 : </h3>
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area odd-box">
+
+																					<input type="text"
+																						placeholder="Enter Your Name"
+																						name="gname"
+																						value="{{obj.guitaristname}}">
+																				</div>
+																			</div>
+
+
+																			<div
+																				class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+																				<div
+																					class="mod-image-wrap mod-comm-wrap">
+																					<div class="mod-btn"
+																						style="margin-top: 10px;">
+																						<div class="box">
+																							<input type="file"
+																								name="gimage"
+																								id="file-1"
+																								value="{{obj.guitaristimage}}"
+																								class="inputfile inputfile-1"
+																								data-multiple-caption="{count} files selected"
+																								multiple=""
+																								onchange="readURL(this);">
+																							<label for="file-1"><i
+																									class="fa fa-cloud-upload"
+																									aria-hidden="true"></i>
+																								<span>Upload
+																									Photo</span></label>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area odd-box">
+																					<select name="gprofession"
+																						class="sprofession"
+																						class="sprofession">
+																						<option
+																							value="{{obj.guitaristprofession}}">
+																							{{obj.guitaristprofession}}
+																						</option>
+																						<option value="Singer">Singer
+																						</option>
+																						<option value="Musician">
+																							Musician</option>
+																						<option value="Guitarist">
+																							Guitarist</option>
+																						<option value="Vocalist">
+																							Vocalist</option>
+																						<option value="Dancer">Dancer
+																						</option>
+																					</select>
+
+																				</div>
+																			</div>
+
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area odd-box">
+
+																					<input type="text"
+																						placeholder="Enter Your Address"
+																						name="gaddress"
+																						value="{{obj.guitaristaddress}}">
+																				</div>
+																			</div>
+
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area linked-box">
+
+																					<input type="text"
+																						placeholder="Enter Your linkedin I'd Link"
+																						name="glinkedin"
+																						value="{{obj.guitaristlinkedinid}}">
+																				</div>
+																			</div>
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area odd-box">
+
+																					<input type="text"
+																						placeholder="Enter Your instagram I'd Link"
+																						name="ginstagram"
+																						value="{{obj.guitaristinstagramid}}">
+																				</div>
+																			</div>
+																			<div
+																				class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="mod-input-area fb-box">
+
+																					<input type="text"
+																						placeholder="Enter Your Github I'd Link"
+																						name="ggithub"
+																						value="{{obj.guitaristgithubid}}">
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+
+																	<!-- Discription -->
+																	<tr>
+																		<td>
+																			<div class="mod-input-area"
+																				style="margin-top: 10px;">
+																				<textarea type="text"
+																					placeholder="Description"
+																					name="Description"
+																					style="color: #000;">{{obj.groupdescription}}</textarea>
+																			</div>
+																		</td>
+																	</tr>
+
+																</table>
+															</div>
+														</div>
+													</div>
+
+												</div>
+											</div>
+										</div>
+
+										<div class="modal-footer"
+											style="text-align: center; justify-content: space-between;">
+											<button class="cmmn-btn slowHover" type="submit"
+												style="margin-right: 20px;"><img
+													src="{% static 'images/mod-save.jpg' %}" alt="">UPDATE</button>
+										</div>
+
+									</form>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+					<!-- edit-profile-modal end-->
+				</div>
+
+
+			</div>
+		</div>
+		<!-- Create a Group end -->
+
+		<!-- group 1 -->
+		{% for obj in group_page %}
+		<section>
+			<div class="group-containers">
+
+				<div class=" icon-containers">
+					{% if user == obj.author %}
+					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+							class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+							<path
+								d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+						</svg>
+					</button>
+					<ul class="dropdown-menu group-dropdown-menu cmmn-btn ">
+						<li><a class="dropdown-item" href="#editgroupModal-{{forloop.counter}}">
+								<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+								<span style="font-size: larger; margin-left: 5px; color: #fff;" data-toggle="modal"
+									data-target="#editgroupModal-{{forloop.counter}}"> Edit</span></a>
+						</li>
+
+						<li><a class="dropdown-item" href="/groupdelete/{{obj.id}}">
+								<i class="fa fa-trash-o" aria-hidden="true"></i>
+								<span style="font-size: larger; margin-left: 5px; color: #fff;"> Delete</span></a>
+						</li>
+					</ul>
+					{% endif %}
+				</div>
+				<h1 class="about-heading group-heading text-center"><span
+						style="color: #bf9100;">{{obj.groupname}}</span></h1>
+
+				<p class="group-para">{{obj.groupdescription|truncatechars:350}}
+				</p>
+				<!-- card 1 -->
+				<div class="card card1">
+					<div class="imgBx">
+						<img src="/media/{{obj.singerimage}}" alt="card image">
+					</div>
+					<div class="content">
+						<h2>{{obj.singername}}</h2>
+						<p>Artist || {{obj.singerprofession}}</p>
+						<p>{{obj.singeraddress}}</p>
+
+						<div class="info-social">
+							<a href="{{obj.singerlinkedinid}}" target="_blank" class="info-social-link">
+								<span class="info-social-icon">
+									<i class="fa fa-linkedin" aria-hidden="true"></i>
+								</span>
+							</a>
+
+							<a href="{{obj.singerinstagramid}}" target="_blank" class="info-social-link">
+								<span class="info-social-icon">
+									<i class="fa fa-instagram" aria-hidden="true"></i>
+								</span>
+							</a>
+
+							<a href="{{obj.singergithub}}" target="_blank" class="info-social-link">
+								<span class="info-social-icon">
+									<i class="fa fa-github" aria-hidden="true"></i>
+								</span>
+							</a>
+						</div>
+
+					</div>
+				</div>
+				<!-- card 2 -->
+				<div class="card ">
+					<div class="imgBx">
+						<img src="/media/{{obj.musicianimage}}" alt="card image">
+					</div>
+					<div class="content">
+						<h2>{{obj.musicianname}}</h2>
+						<p>Artist || {{obj.musicianprofession}}</p>
+						<p>{{obj.musicianaddress}}</p>
+
+						<div class="info-social">
+							<a href="{{obj.musicianlinkedinid}}" target="_blank" class="info-social-link">
+								<span class="info-social-icon">
+									<i class="fa fa-linkedin" aria-hidden="true"></i>
+								</span>
+							</a>
+
+							<a href="{{obj.musicianinstagramid}}" target="_blank" class="info-social-link">
+								<span class="info-social-icon">
+									<i class="fa fa-instagram" aria-hidden="true"></i>
+								</span>
+							</a>
+
+							<a href="{{obj.musiciangithubid}}" target="_blank" class="info-social-link">
+								<span class="info-social-icon">
+									<i class="fa fa-github" aria-hidden="true"></i>
+								</span>
+							</a>
+						</div>
+
+					</div>
+				</div>
+				<!-- card 3 -->
+				<div class="card ">
+					<div class="imgBx">
+						<img src="/media/{{obj.guitaristimage}}" alt="card image">
+					</div>
+					<div class="content">
+						<h2>{{obj.guitaristname}}</h2>
+						<p>Artist || {{obj.guitaristprofession}}</p>
+						<p>{{obj.guitaristaddress}}</p>
+
+						<div class="info-social">
+							<a href="{{obj.guitaristlinkedinid}}" target="_blank" class="info-social-link">
+								<span class="info-social-icon">
+									<i class="fa fa-linkedin" aria-hidden="true"></i>
+								</span>
+							</a>
+
+							<a href="{{obj.guitaristinstagramid}}" target="_blank" class="info-social-link">
+								<span class="info-social-icon">
+									<i class="fa fa-instagram" aria-hidden="true"></i>
+								</span>
+							</a>
+
+							<a href="{{obj.guitaristgithubid}}" target="_blank" class="info-social-link">
+								<span class="info-social-icon">
+									<i class="fa fa-github" aria-hidden="true"></i>
+								</span>
+							</a>
+						</div>
+
+					</div>
+				</div>
+
+		</section>
+
+		{% endfor %}
+		<!-- Pagination Start -->
+		<div class="pagination-section" style="text-align: center;">
+			<ul class="pagination">
+				<!-- Enclose pagination links in a <ul> element -->
+				{% if group_page.paginator.num_pages > 1 %}
+					{% if group_page.has_previous %}
+						<li class="page-item previous-page"><a class="page-link" style="padding-left: 16px;" href="?page=1" tabindex="-1">First</a></li>
+						<li class="page-item previous-page"><a class="page-link" style="padding-left: 14px;" href="?page={{ group_page.previous_page_number }}" tabindex="-1">Prev</a></li>
+					{% endif %}
+		
+					{% for n in group_page.paginator.page_range %}
+						{% if group_page.number == n %}
+							<li class="page-item active"><a class="page-link">{{ n }}</a></li>
+						{% elif n == group_page.paginator.page_range.start %}
+							<li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+							{% if group_page.number > n|add:2 %}
+								<li class="page-item dots"><a class="page-link">...</a></li>
+							{% endif %}
+						{% elif n == group_page.paginator.page_range.stop %}
+							{% if group_page.number < n|add:-2 %} 
+								<li class="page-item dots"><a class="page-link">...</a></li>
+							{% endif %}
+							<li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+						{% elif n > group_page.number|add:-2 and n < group_page.number|add:3 %} 
+							<li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+						{% endif %}
+					{% endfor %}
+		
+					{% if group_page.has_next %}
+						<li class="page-item next-page"><a class="page-link" style="padding-left: 16px;" href="?page={{ group_page.next_page_number }}">Next</a></li>
+						<li class="page-item next-page"><a class="page-link" style="padding-left: 16px;" href="?page={{ group_page.paginator.num_pages }}">Last</a></li>
+					{% endif %}
+				{% endif %}
+			</ul>
+		</div>
+					<!-- Pagination End -->
+	</div>
+</div>
+<!--webpage-->
+
+{% endblock webpage %}

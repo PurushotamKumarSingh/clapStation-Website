@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Home | Clap Station 
+{% endblock title %}
+
+{% block webpage %}
+<div id="bookModal" class="book-modal modal fade" role="dialog">
+	<div class="modal-dialog">
+
+	  <!-- Modal content-->
+	  <div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title">share your Post</h1>
+			  
+			</div>
+			<div class="modal-body">
+				<div class="book-body-wrap posts-images">
+					<li><a href="https://wa.me/9720806043"><i class="fa fa-whatsapp"></i> whatsapp</a></li>
+					<li><a href="https://www.facebook.com/"><i class="fa fa-facebook" aria-hidden="true"></i> facebook</a></li>
+					<li><a href="https://twitter.com/"><i class="fa fa-twitter" aria-hidden="true"></i> twitter</a></li>
+					<li><a href="https://www.instagram.com/"><i class="fa fa-instagram" aria-hidden="true"></i> instagram</a></li>
+				 </div>	
+			</div>
+			<div class="modal-footer">
+			  <a href="{% url 'starting-page' %}"></a><button type="button" class="cmmn-btn book-btn slowHover" data-dismiss="modal">Back </button>
+			</div>
+		  </div>
+		</div><!---modal-dialog--->
+  </div>
+
+
+	<!--webpage-->
+	<div class="webpage page-new-home">
+		<div class="container-fluid">
+			
+			<div class="home-page-wrap">
+				<div class="row">
+					<div class="col-lg-2 col-md-6 col-sm-12 col-xs-12 home-left-col"> 
+					
+					</div>
+				</div>
+				<div class="col-lg-7 col-md-3 col-sm-12 col-xs-12 home-center-col"> 
+					<div class="home-middle-area main-home-middle-area">
+						<form action=" /postupdate/{{post.id}} " method="post"  enctype="multipart/form-data">
+							{% csrf_token %}
+							<div class="middle-txt-area">
+								<textarea id="" name="post-content" rows="4" cols="50"  placeholder="Share your content....." >{{post.about}}</textarea>
+							</div>
+							<div class="middle-text-post">
+								<ul>          
+									<li><a href="#"><img src="{% static 'images/video.png' %}"> Live Videos</a></li>
+									<li>
+										<label class="home-img-upload-section">
+											<input class="home-img-upload" type="file" id = "img" name="post-image" value="{{post.image}}">
+											<img src="{% static 'images/photo.png' %}">Photos/Videos
+										</label>
+									</li>
+								
+
+								</ul>
+								<div class="home-middle-area-btn">
+									<button class="cmmn-btn middle-area-btn slowHover" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>update</button>
+								</div>
+							</div>
+							</form>
+						
+						
+			</div>
+		</div>
+	</div>
+	
+	
+	<!--webpage-->
+	<!--scroll-to-top--> 
+	<!-- <a id="scrollToTop" class="scroll-hide" href=""><i class="fas fa-chevron-up"></i></a>  -->
+	<!--scroll-to-top-->
+	
+	</div>
+<br>
+{% endblock webpage %}
+
+{% block JS %}
+	
+		<script src=" {% static 'js/jquery.js' %}" type="text/javascript"></script>
+		<script src=" {% static 'js/popper.min.js' %}" type="text/javascript"></script>
+		<script src=" {% static 'js/bootstrap.min.js' %}" type="text/javascript"></script>
+		<script src=" {% static 'js/owl.carousel.min.js' %}"></script>
+		<script src=" {% static 'js/custom.js' %}" type="text/javascript"></script>
+
+		<script type="text/javascript">
+		$(function () {
+		$('.toggle-menu').click(function(){
+			$('.exo-menu').toggleClass('display');
+		});
+		});
+		$(document).ready(function(){
+		$(".toggle-menu").click(function(){
+				$(".mobile-close").show(400);
+			});
+		$(".mobile-close").click(function(){
+				$(".exo-menu").removeClass('display');
+				$(this).hide(400);
+			});
+		});
+
+
+		if ("userid" in localStorage) {
+
+		// alert("userid found")
+			document.getElementById("signin").style.display = "none";
+			document.getElementById("signup").style.display = "none";
+			//document.getElementById("vendor").style.display = "none";
+			document.getElementById("profile").style.display = "inline-block";
+			document.getElementById("logout").style.display = "inline-block";
+			
+			} else {
+			// alert("Not found")
+			document.getElementById("signin").style.display = "inline-block";
+			document.getElementById("signup").style.display = "inline-block";
+			//document.getElementById("vendor").style.display = "inline-block";
+			document.getElementById("profile").style.display = "none";
+			document.getElementById("logout").style.display = "none";
+			}
+		</script>
+
+	{% endblock JS %}

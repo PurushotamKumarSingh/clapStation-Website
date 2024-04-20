@@ -1,0 +1,1220 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>{% block title %} {% endblock title %}</title>
+
+  <!-- lighbox css -->
+  <link rel="stylesheet" href="{% static 'css/lightbox.css' %}">
+  <link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="{% static 'css/bootsrap-datepicker.css' %}" type="text/css" />
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+  <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css" />
+
+  <!-- swiper -->
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" /> -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+  <!--=============== REMIXICONS ===============-->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+
+
+  <style>
+    .navbar {
+      min-height: 0;
+      margin-bottom: 0;
+    }
+
+    .navbar .navbar_right .profile,
+    .navbar .navbar_right .notifications {
+      position: relative;
+    }
+
+    .navbar .profile .profile_dd,
+    .notification_dd {
+      position: absolute;
+      top: 48px;
+      right: -15px;
+      user-select: none;
+      background: #fff;
+      border: 1px solid #c7d8e2;
+      width: 350px;
+      height: auto;
+      display: none;
+      border-radius: 3px;
+      box-shadow: 10px 10px 35px rgba(0, 0, 0, 0.125),
+        -10px -10px 35px rgba(0, 0, 0, 0.125);
+    }
+
+    .navbar .profile .profile_dd:before,
+    .notification_dd:before {
+      content: "";
+      position: absolute;
+      top: -20px;
+      right: 15px;
+      border: 10px solid;
+      border-color: transparent transparent #fff transparent;
+    }
+
+    .notification_dd li {
+      border-bottom: 1px solid #f1f2f4;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .notification_dd li .notify_icon {
+      display: flex;
+    }
+
+    .notification_dd li .notify_icon .icon {
+      display: inline-block;
+      background: url('https://i.imgur.com/MVJNkqW.png') no-repeat 0 0;
+      width: 40px;
+      height: 42px;
+    }
+
+    .notification_dd li.baskin_robbins .notify_icon .icon {
+      background-position: 0 -43px;
+    }
+
+    .notification_dd li.mcd .notify_icon .icon {
+      background-position: 0 -86px;
+    }
+
+    .notification_dd li.pizzahut .notify_icon .icon {
+      background-position: 0 -129px;
+    }
+
+    .notification_dd li.kfc .notify_icon .icon {
+      background-position: 0 -178px;
+    }
+
+    .notification_dd li .notify_data {
+      margin: 0 15px;
+      width: 185px;
+    }
+
+    .notification_dd li .notify_data .title {
+      color: #000;
+      font-weight: 600;
+    }
+
+    .notification_dd li .notify_data .sub_title {
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 5px;
+    }
+
+    .notification_dd li .notify_status p {
+      font-size: 12px;
+    }
+
+    .notification_dd li.success .notify_status p {
+      color: #47da89;
+    }
+
+    .notification_dd li.failed .notify_status p {
+      color: #fb0001;
+    }
+
+    .notification_dd li.show_all {
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .notification_dd li.show_all p {
+      font-weight: 700;
+      color: #3b80f9;
+      cursor: pointer;
+    }
+
+    .notification_dd li.show_all p:hover {
+      text-decoration: underline;
+    }
+
+    .navbar .navbar_right .profile .icon_wrap {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar .navbar_right .profile .name {
+      display: inline-block;
+      margin: 0 10px;
+    }
+
+    .navbar .navbar_right .icon_wrap:hover,
+    .navbar .navbar_right .profile.active .icon_wrap,
+    .navbar .navbar_right .notifications.active .icon_wrap {
+      color: #3b80f9;
+    }
+
+    .navbar .profile .profile_dd {
+      width: 225px;
+    }
+
+    .navbar .profile .profile_dd:before {
+      right: 10px;
+    }
+
+    .navbar .profile .profile_dd ul li {
+      border-bottom: 1px solid #f1f2f4;
+    }
+
+    .navbar .profile .profile_dd ul li a {
+      display: block;
+      padding: 15px 35px;
+      position: relative;
+    }
+
+    .navbar .profile .profile_dd ul li a .picon {
+      display: inline-block;
+      width: 30px;
+    }
+
+    .navbar .profile .profile_dd ul li a:hover {
+      color: #3b80f9;
+      background: #f0f5ff;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .navbar .profile .profile_dd ul li.profile_li a:hover {
+      background: transparent;
+      cursor: default;
+      color: #7f8db0;
+    }
+
+    .navbar .profile .profile_dd ul li .btn {
+      height: 32px;
+      padding: 7px 10px;
+      color: #fff;
+      border-radius: 3px;
+      cursor: pointer;
+      text-align: center;
+      background: #3b80f9;
+      width: 125px;
+      margin: 5px auto 15px;
+    }
+
+    .navbar .profile .profile_dd ul li .btn:hover {
+      background: #6593e4;
+    }
+
+    .navbar .profile.active .profile_dd,
+    .navbar .notifications.active .notification_dd {
+      display: block;
+      text-align: justify;
+    }
+
+    .popup {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transition: all 0.2s ease;
+      display: none;
+    }
+
+    .popup .shadow {
+      width: 100%;
+      height: 100%;
+      background: #000;
+      opacity: 0.5;
+    }
+
+    .popup .inner_popup {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: auto;
+      z-index: 99;
+    }
+
+    .popup .notification_dd {
+      display: block;
+      position: static;
+      margin: 0 auto;
+      width: 340px;
+      height: auto;
+      overflow: auto;
+      /* margin-top: -200px; */
+    }
+
+    .popup .notification_dd:before {
+      display: none;
+    }
+
+    .popup .notification_dd li.title {
+      font-weight: 700;
+      color: #bf9100;
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+
+    .popup .notification_dd li.title .close {
+      position: absolute;
+      top: 2px;
+      right: 10px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .popup .notification_dd li.title .close:hover {
+      opacity: 0.5;
+    }
+
+    .notification_ul {
+      display: block;
+    }
+
+    .popup-close {
+      color: #333;
+      font-size: 25px;
+      margin-top: 5px;
+    }
+
+    .navbar .notifications.active .notification_dd {
+      display: block;
+      height: 440px;
+    }
+
+    /* meadia notification */
+    @media(max-width: 1024px) {
+      .navbar ul {
+        position: relative;
+        margin-top: 0;
+        top: -100px;
+        right: 0;
+        height: 300px;
+        background: none;
+      }
+
+      .navbar .profile .profile_dd,
+      .notification_dd {
+        top: -390px;
+        right: -160px;
+        width: 350px;
+        bottom: 210px;
+      }
+
+      .navbar .notifications.active .notification_dd {
+      display: block;
+      height: 206px;
+    }
+      .popup .notification_dd {
+        margin: 50% 50% 50%;
+      }
+
+      .popup .inner_popup {
+        left: 35%;
+      }
+
+      .navbar .profile .profile_dd:before,
+      .notification_dd:before {
+        content: none;
+      }
+
+      .popup .notification_dd li.title {
+        left: -30px;
+      }
+
+      .popup-close {
+        margin-right: -20px;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .popup .notification_dd {
+        margin: 0 35% 80%;
+      }
+    }
+
+    @media (min-width: 279px) and (max-width: 440px) {
+      .popup .notification_dd {
+        margin: 70% 39% 80%;
+        width: 76%;
+      }
+
+      .popup .inner_popup {
+        transform: translate(-65%, -50%);
+      }
+
+      .popup-close {
+        margin-right: 5px;
+      }
+    }
+
+    /* notification end */
+
+    ::-webkit-scrollbar {
+      width: .1rem;
+    }
+
+    header {
+      width: 100%;
+      height: 70px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      z-index: 1;
+      box-shadow: 0 0 10px #000;
+      background: rgb(191 145 0 / 0.7);
+      margin-right: 20px;
+    }
+
+    #chk1 {
+      display: none;
+    }
+
+    i {
+      color: #fff;
+      cursor: pointer;
+    }
+
+    header .logo {
+      margin-left: 60px;
+      /* flex: 1; */
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    header .search-box {
+      position: relative;
+    }
+
+    .custom-icon {
+      color: #fff;
+    }
+
+    .search-box input {
+      width: 100%;
+      height: 40px;
+      border: none;
+      outline: none;
+      background: #f2f2f2;
+      border-radius: 30px;
+      color: grey;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    .search-box button {
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 30px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: scale(0.9);
+      background: rgb(191 145 0 / 0.7);
+    }
+
+    .profile-icon button {
+      margin-left: 5px;
+      width: 40px;
+      height: 40px;
+      border-radius: 30px;
+      position: relative;
+      background: rgb(191 145 0 / 0.7);
+    }
+
+    .profile-icon button i {
+      right: 30px;
+
+    }
+
+    .dropdown-menu {
+      margin-top: 10px;
+      margin-left: 85%;
+      background-color: rgb(191 145 0 / 0.7);
+      color: #fff;
+    }
+
+    .dropdown-menu .dropdown-item:hover {
+      background-color: #31260521;
+    }
+
+    header ul {
+      flex: 1;
+      display: flex;
+      justify-content: space-evenly;
+    }
+
+    header ul li {
+      list-style: none;
+      margin-top: 20px;
+    }
+
+    header ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      padding: 10px 1px;
+    }
+
+    header ul li:hover {
+      border-bottom: 2px solid rgb(224, 221, 190);
+    }
+
+    header .menu {
+      font-size: 2.5em;
+      display: none;
+    }
+
+    @media(max-width:1024px) {
+      .search-box button {
+        position: absolute;
+        margin-left: 20px;
+        right: -26px;
+      }
+
+      .search-box input {
+        margin-left: 25px;
+      }
+
+      header ul {
+        position: absolute;
+        top: 100px;
+        right: -1000px;
+        background: rgba(0, 0, 0, 0.5);
+        height: 450px;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        transition: right 0.5s linear;
+        overflow-y: auto;
+        /* Add scrollbar for vertical overflow */
+      }
+
+      .drop-scroll {
+          /* margin-top: 150px; */
+          height: auto;
+          max-height: 300px;
+        }
+
+      .profile-icon button {
+        margin-top: 10px;
+      }
+
+      i:hover {
+        color: #000;
+        background-color: antiquewhite;
+      }
+
+      header .logo {
+        margin-left: 0;
+      }
+
+      header .menu {
+        display: block;
+        width: 100px;
+        margin-left: 70%;
+        text-align: center;
+      }
+
+      #chk1:checked~ul {
+        right: 0;
+      }
+
+      .dropdown-menu {
+        margin-top: -14%;
+        margin-left: 0%;
+        width: 45%;
+        height: 100px;
+        background: rgba(0, 0, 0, 0.5);
+      }
+
+      header ul li .profile-icon {
+        margin-top: 40px;
+      }
+
+
+      @media(max-height: 800px) {
+        header ul {
+          margin-top: 0;
+          padding-top: 120px;
+          height: auto;
+          max-height: 300px;
+        }
+
+        .drop-scroll {
+          margin-top: 150px;
+          height: auto;
+          max-height: 300px;
+        }
+
+        .drop-scroll li {
+          margin-top: 0;
+        }
+
+        .dropdown-menu {
+        margin-top: 7%;
+        margin-left: 0%;
+        width: 45%;
+        height: 100px;
+        background: rgba(0, 0, 0, 0.5);
+      }
+
+        .cmmn-btn:hover {
+          background-color: rgba(0, 0, 0, 0.5);
+        }
+      }
+    }
+
+    /* .drop-scroll li {
+      margin-top: 0;
+    } */
+
+    @media (max-width: 767px) {
+      header .logo {
+        margin-left: 15px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      header .menu {
+        display: block;
+        width: 100px;
+        margin-left: 10%;
+        text-align: center;
+      }
+    }
+
+    @media (min-width: 280px) and (max-width: 350px){
+      .dropdown-menu {
+        margin-top: -51%;
+        margin-left: 0%;
+        width: 100%;
+        height: 100px;
+        background: rgba(0, 0, 0, 1);
+}
+
+@media(max-height: 800px){
+  .dropdown-menu {
+        margin-top: -5%;
+        margin-left: 0%;
+        width: 100%;
+        height: 100px;
+        background: rgba(0, 0, 0, 1);
+}
+}
+}
+
+    /* footer start */
+    footer {
+      width: 105%;
+      margin-left: -20px;
+      margin-top: 20px;
+      position: relative;
+      bottom: 0;
+      background: rgb(191 145 0 / 0.7);
+      color: #fff;
+      padding: 15px 0 15px;
+      font-size: 13px;
+      line-height: 18px;
+    }
+
+    .footer-row {
+      width: 100%;
+      margin: auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .footer-col {
+      flex-basis: 25%;
+      padding: 10px;
+    }
+
+    .footer-col:nth-child(2),
+    .footer-col:nth-child(3) {
+      flex-basis: 12%;
+    }
+
+    .footer-logo {
+      width: 80px;
+      margin-bottom: 30px;
+    }
+
+    .footer-col h3 {
+      width: fit-content;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .email-id {
+      width: fit-content;
+      border-bottom: 1px solid #ccc;
+      margin: 20px 0;
+    }
+
+    .footer-col ul li {
+      list-style: none;
+      margin-bottom: 12px;
+    }
+
+    .footer-col ul li a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .footer-col form {
+      padding-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 50px;
+    }
+
+    .footer-col form .fa {
+      font-size: 30px;
+      margin-right: 10px;
+    }
+
+    .footer-col form input {
+      width: 100%;
+      background: transparent;
+      color: #fff;
+      border: 0;
+      outline: none;
+      margin-left: 10px;
+    }
+
+    .social-icons .fa {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 40px;
+      font-size: 20px;
+      color: rgb(191 145 0 / 0.7);
+      background: #fff;
+      margin-right: 15px;
+      cursor: pointer;
+    }
+
+    hr {
+      width: 90%;
+      border: 0;
+      border-bottom: 1px solid #ccc;
+      margin: 20px auto;
+    }
+
+    .copyright {
+      text-align: center;
+    }
+
+    .underline {
+      width: 100%;
+      height: 5px;
+      background: #ccc;
+      border-radius: 3px;
+      position: absolute;
+      top: 25px;
+      left: 0;
+      overflow: hidden;
+    }
+
+    .underline span {
+      width: 15px;
+      height: 100%;
+      background: rgb(191 145 0 / 0.7);
+      border-radius: 3px;
+      position: absolute;
+      top: 0;
+      left: 10px;
+      animation: moving 2s linear infinite;
+    }
+
+    .base-info .infobox div {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .base-info .infobox div span {
+      min-width: 40px;
+      height: 40px;
+      color: rgb(191 145 0 / 0.7);
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5em;
+      border-radius: 50%;
+      margin-right: 15px;
+    }
+
+    .base-info .infobox div p {
+      color: #fff;
+      font-size: 1.1em;
+    }
+
+    .base-info .infobox div a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.1em;
+    }
+
+
+
+
+    @keyframes moving {
+      0% {
+        left: -20%;
+      }
+
+      100% {
+        left: 100%;
+      }
+    }
+
+    @media (max-width: 700px) {
+      footer {
+        bottom: unset;
+      }
+
+      .footer-col {
+        flex-basis: 100%;
+        margin-left: 60px;
+        margin-right: 60px;
+      }
+
+      .footer-col:nth-child(2),
+      .footer-col:nth-child(3) {
+        flex-basis: 100%;
+      }
+    }
+
+    /* footer end */
+  </style>
+
+
+  {% block head %}
+
+
+  {% endblock head %}
+</head>
+
+
+<body style="margin-bottom: 100px;">
+  <!--website-wrap-->
+  <div class="website-wrap home-page about-page artist-page bands-page">
+    <div class="page-back">
+      <!--page-black-overlay-->
+      <div class="page-black-overlay">
+        <header>
+          <input type="checkbox" name="" id="chk1">
+          <div class="logo">
+            <a href="{% url 'starting-page' %}"><img src="{% static 'images/logo.png' %}"></a>
+          </div>
+          <ul style="font-size: medium;">
+            <li><a href="{% url 'starting-page' %}">Home</a></li>
+            <li><a href="{% url 'groups' %}">Groups</a></li>
+            <li><a href="{% url 'bands' %}">Bands</a></li>
+            <li><a href="{% url 'academies' %}">Academies</a></li>
+            <li><a href="{% url 'events' %}">Events</a></li>
+            <li><a href="{% url 'artists' %}">Artists</a></li>
+            <li><a href="{% url 'about' %}">About us</a></li>
+            <li><a href="{% url 'contact' %}">Contact us</a></li>
+
+            <!-- notification -->
+            <li class="navbar">
+              <div class="navbar_right">
+                <div class="notifications">
+                  <div class="icon_wrap"><i class="fa  fa-bell-o fa-2x header"></i></div>
+
+                  <div class="notification_dd">
+                    <ul class="notification_ul">
+                      <li class="baskin_robbins failed">
+                        <div class="notify_icon">
+                          <span class="icon"></span>
+                        </div>
+                        <div class="notify_data">
+                          <div class="title">
+                            Lorem, ipsum dolor.
+                          </div>
+                          <div class="sub_title">
+                            Lorem ipsum dolor sit amet consectetur.
+                          </div>
+                        </div>
+                        <div class="notify_status">
+                          <p>Failed</p>
+                        </div>
+                      </li>
+                      <li class="mcd success">
+                        <div class="notify_icon">
+                          <span class="icon"></span>
+                        </div>
+                        <div class="notify_data">
+                          <div class="title">
+                            Lorem, ipsum dolor.
+                          </div>
+                          <div class="sub_title">
+                            Lorem ipsum dolor sit amet consectetur.
+                          </div>
+                        </div>
+                        <div class="notify_status">
+                          <p>Success</p>
+                        </div>
+                      </li>
+                      <li class="pizzahut failed">
+                        <div class="notify_icon">
+                          <span class="icon"></span>
+                        </div>
+                        <div class="notify_data">
+                          <div class="title">
+                            Lorem, ipsum dolor.
+                          </div>
+                          <div class="sub_title">
+                            Lorem ipsum dolor sit amet consectetur.
+                          </div>
+                        </div>
+                        <div class="notify_status">
+                          <p>Failed</p>
+                        </div>
+                      </li>
+                      <li class="kfc success">
+                        <div class="notify_icon">
+                          <span class="icon"></span>
+                        </div>
+                        <div class="notify_data">
+                          <div class="title">
+                            Lorem, ipsum dolor.
+                          </div>
+                          <div class="sub_title">
+                            Lorem ipsum dolor sit amet consectetur.
+                          </div>
+                        </div>
+                        <div class="notify_status">
+                          <p>Success</p>
+                        </div>
+                      </li>
+                      <li class="show_all">
+                        <p class="link">Show All Activities</p>
+                      </li>
+                    </ul>
+                  </div>
+
+                </div>
+              </div>
+            </li>
+            <!-- notification end -->
+
+
+            <li class=" profile-icon slowHover ">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <a href="#"><i class="fa fa-user fa-2xl"></i></a>
+              </button>
+              <ul class="dropdown-menu drop-scroll cmmn-btn">
+                {% if user.is_authenticated %}
+                {% if user_profile.role != 'Individual' %}
+                <li><a class="dropdown-item" href="{% url 'profile' %}"><i class="fa fa-user fa-2x custom-icon"
+                      aria-hidden="true"></i><span style="font-size: larger; margin-left: 5px; color: #fff;">
+                      Profile</span></a>
+                </li>
+                {% endif %}
+
+                <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="fa fa-user fa-2x custom-icon"
+                      aria-hidden="true"></i>
+                    <span style="font-size: larger; margin-left: 5px; color: #fff;"> Log Out</span></a>
+                </li>
+                {% else %}
+                <li><a class="dropdown-item" href="{% url 'login' %}"><i class="fa fa-user fa-2x custom-icon"
+                      aria-hidden="true"></i>
+                    <span style="font-size: larger; margin-left: 5px; color: #fff;"> Sign In </span></a>
+                </li>
+
+                <li><a class="dropdown-item" href="{% url 'signup' %}"><i class="fa fa-user fa-2x custom-icon"
+                      aria-hidden="true"></i>
+                    <span style="font-size: larger; margin-left: 5px; color: #fff;"> SignUp</span></a>
+                </li>
+                {% endif %}
+              </ul>
+            </li>
+
+          </ul>
+          <!-- <div class="search-box" style="margin-right: 70px;">
+            <form action="">
+              <input type="text" name="search" id="srch" placeholder="Search">
+              <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+          </div> -->
+          <div class="menu">
+            <label for="chk1">
+              <i class="fa fa-bars"></i>
+            </label>
+          </div>
+        </header>
+
+        <!-- pop- up notification start -->
+        <div class="popup">
+          <div class="shadow"></div>
+          <div class="inner_popup">
+            <div class="notification_dd">
+              <ul class="notification_ul">
+                <li class="title">
+                  <p>All Notifications</p>
+                  <p class="close"><i class="fa fa-times popup-close" aria-hidden="true"></i></p>
+                </li>
+                <li class="starbucks success">
+                  <!-- <div class="notify_icon">
+                    <span class="icon"></span>
+                  </div> -->
+                  <div class="notify_data">
+                    <div class="title">
+                      Lorem, ipsum dolor.
+                    </div>
+                    <div class="sub_title">
+                      Lorem ipsum dolor sit amet consectetur.
+                    </div>
+                  </div>
+                  <div class="notify_status">
+                    <p>Success</p>
+                  </div>
+                </li>
+                <li class="baskin_robbins failed">
+                  <!-- <div class="notify_icon">
+                    <span class="icon"></span>
+                  </div> -->
+                  <div class="notify_data">
+                    <div class="title">
+                      Lorem, ipsum dolor.
+                    </div>
+                    <div class="sub_title">
+                      Lorem ipsum dolor sit amet consectetur.
+                    </div>
+                  </div>
+                  <div class="notify_status">
+                    <p>Failed</p>
+                  </div>
+                </li>
+                <li class="mcd success">
+                  <!-- <div class="notify_icon">
+                    <span class="icon"></span>
+                  </div> -->
+                  <div class="notify_data">
+                    <div class="title">
+                      Lorem, ipsum dolor.
+                    </div>
+                    <div class="sub_title">
+                      Lorem ipsum dolor sit amet consectetur.
+                    </div>
+                  </div>
+                  <div class="notify_status">
+                    <p>Success</p>
+                  </div>
+                </li>
+                <li class="baskin_robbins failed">
+                  <!-- <div class="notify_icon">
+                    <span class="icon"></span>
+                  </div> -->
+                  <div class="notify_data">
+                    <div class="title">
+                      Lorem, ipsum dolor.
+                    </div>
+                    <div class="sub_title">
+                      Lorem ipsum dolor sit amet consectetur.
+                    </div>
+                  </div>
+                  <div class="notify_status">
+                    <p>Failed</p>
+                  </div>
+                </li>
+                <li class="pizzahut failed">
+                  <!-- <div class="notify_icon">
+                    <span class="icon"></span>
+                  </div> -->
+                  <div class="notify_data">
+                    <div class="title">
+                      Lorem, ipsum dolor.
+                    </div>
+                    <div class="sub_title">
+                      Lorem ipsum dolor sit amet consectetur.
+                    </div>
+                  </div>
+                  <div class="notify_status">
+                    <p>Failed</p>
+                  </div>
+                </li>
+                <li class="kfc success">
+                  <!-- <div class="notify_icon">
+                    <span class="icon"></span>
+                  </div> -->
+                  <div class="notify_data">
+                    <div class="title">
+                      Lorem, ipsum dolor.
+                    </div>
+                    <div class="sub_title">
+                      Lorem ipsum dolor sit amet consectetur.
+                    </div>
+                  </div>
+                  <div class="notify_status">
+                    <p>Success</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- pop- up notification end -->
+
+        {% block webpage %}
+
+        {% endblock webpage %}
+
+        <!-- Footer start -->
+        <footer>
+          <div class="row footer-row">
+            <div class="col footer-col">
+              <img src="{% static 'images/logo.png' %}" alt="" class="logo footer-logo">
+              <p style="text-align: justify;">A clap-Station website is a platform designed to facilitate the planning,
+                promotion, and execution of musical events featuring bands or artists. </p>
+              <br>
+            </div>
+
+
+
+            <div class="col footer-col">
+              <h3>Links <div class="underline"><span></span> </h3>
+              <ul>
+                <li><a href="{% url 'starting-page' %}">Home</a></li>
+
+
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'academies' %}">Academies</a></li>
+                <li><a href="{% url 'contact' %}">Contact Us</a></li>
+
+                <li><a href="{% url 'bands' %}">Bands</a><span>|</span>
+                  <a href="{% url 'artists' %}">Artists</a>
+                </li>
+
+                <li><a href="{% url 'events' %}">Events</a> <span>|</span>
+                  <a href="{% url 'groups' %}">Groups</a>
+                </li>
+
+
+              </ul>
+            </div>
+
+            <div class="col footer-col base-info">
+              <h3>Office <div class="underline"><span></span> </div>
+              </h3>
+              <div class="infobox">
+                <div>
+                  <span><ion-icon name="location"></ion-icon></span>
+                  <p>Sector-16A, Noida, 201301</p>
+                </div>
+
+                <div>
+                  <span><ion-icon name="mail"></ion-icon></span>
+                  <a href="mailto:connect@netcoreinfo.com">connect@netcoreinfo.com</a>
+                </div>
+
+                <div>
+                  <span><ion-icon name="call"></ion-icon></span>
+                  <a href="tel:+91 123567 1234">+91 123 567 1234</a>
+                </div>
+
+
+              </div>
+            </div>
+
+            <div class="col footer-col">
+              <h3>Newsletter <div class="underline"><span></span> </h3>
+              <form>
+                <i class="fa fa-envelope-open-o " aria-hidden="true"></i>
+                <input type="email" placeholder="Enter Your email-id" required>
+                <buttom type="Submit"><i class="fa fa-arrow-circle-right " aria-hidden="true"></i></i></buttom>
+              </form>
+
+              <div class="social-icons">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+          <p class="copyright"><a href="https://netcoreinfo.com/" style="color: #ccc;"
+              class="email-id">netcoreinfo.com</a> <i class="fa fa-copyright" aria-hidden="true"></i> 2023 - All Rights
+            Reserved</p>
+        </footer>
+        <!-- Footer end -->
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <script src="{% static 'js/jquery.js' %}" type="text/javascript"></script>
+  <script src="{% static 'js/popper.min.js' %}" type="text/javascript"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}" type="text/javascript"></script>
+  <script src="{% static 'js/datelocal.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/bootstrap-datetimepicker.js' %}"></script>
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'js/custom.js' %}" type="text/javascript"></script>
+  <script src="{% static 'assets/js/main.js' %}" type="text/javascript"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <!-- lightbox js -->
+  <script src="{% static 'js/lightbox-plus-jquery.js' %}"></script>
+
+  <!-- notification -->
+  <script>
+    $(document).ready(function () {
+      $(".profile .icon_wrap").click(function () {
+        $(this).parent().toggleClass("active");
+        $(".notifications").removeClass("active");
+      });
+
+      $(".notifications .icon_wrap").click(function () {
+        $(this).parent().toggleClass("active");
+        $(".profile").removeClass("active");
+      });
+
+      $(".show_all .link").click(function () {
+        $(".notifications").removeClass("active");
+        $(".popup").show();
+      });
+
+      $(".close").click(function () {
+        $(".popup").hide();
+      });
+    });
+  </script>
+
+</body>
+
+</html>

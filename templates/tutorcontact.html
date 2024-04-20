@@ -1,0 +1,140 @@
+{% extends "base.html" %} 
+
+{% load static %} 
+
+{% block title %} Event Booking Form | ClapStation {% endblock title %} 
+
+{% block head %}
+<style>
+    .event-booking {
+        font-family: Arial;
+        font-size: 16px;
+        padding: 6px;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .col-50 {
+        -ms-flex: 50%;
+        flex: 50%;
+    }
+
+    .container1 {
+        background-color: #f2f2f2;
+        padding: 5px 20px 15px 20px;
+        border: 1px solid lightgrey;
+        border-radius: 3px;
+        max-width: 600px;
+        margin: auto;
+    }
+
+    .container1 h2{
+        margin-bottom: 10px;
+        text-align: center;
+    } 
+
+    .input input{
+        width: 100%;
+        margin-bottom: 20px;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        border-radius: 10px;
+    }
+
+    .input input:hover{
+        border: 1px solid #bf9100;
+    }
+
+    .input input[type=email],
+    textarea,
+    select {
+        width: 100%;
+        margin-bottom: 20px;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+    }
+
+    .input input[type=email],
+    textarea,
+    select:hover{
+        border: 1px solid #bf9100;
+    }
+
+    .event-btn{
+        text-align: center;
+    }
+    
+    @media (max-width: 400px) {
+        .row {
+            flex-direction: column;
+        }
+    }    
+</style>
+{% endblock head %}
+
+
+{% block webpage %}
+
+<section class="event-booking" style="margin-top: 100px;">
+    <div class="row">
+        <div class="col-75">
+            <div class="container1">
+                
+                    <h2>{{tutor.name}} Booking Form</h2>
+                
+                <form action="{% url 'TutorContact' tutor.id %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="input">
+                        <label for="event-title">Name:</label>
+                        <input name="name" type="text" placeholder="Enter Full Name">
+                    </div>
+
+                    <div class="input">
+                        <label for="event-title">Email:</label>
+                        <input name="email" type="text" placeholder="Enter Your Email I'd">
+                    </div>
+
+                    <div class="input">
+                        <label for="event-title">Ph. Num:</label>
+                        <input name="phone" type="text" placeholder="Enter Your Phone Number">
+                    </div>
+
+                    <div class="input">
+                        <label for="event-title">No. Of Candidate :</label>
+                        <input name="candidate" type="number" placeholder="Enter No, of Candidate">
+                    </div>
+
+                    <div class="input">
+                        <label for="category">Enter event category:</label>
+                       <select name="category" id="">
+                        <option value="Dance">---------</option>
+                        <option value="Dance">Dance</option>
+                        <option value="Music">Music</option>
+                        <option value="Comedy">Comedy</option>
+                        <option value="Band">Band</option>
+                       </select>
+                      </div>
+
+                      <div class="input">
+                        <input name="city" type="text" placeholder="Enter Your address" >
+                      </div>
+                    
+                    <div class="modal-footer event-btn" >
+                        <button class="cmmn-btn slowHover" type="submit" style="margin-right: 20px;">SAVE</button>
+
+                        <button class="cmmn-btn slowHover" type="button" onclick="history.back()">BACK</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+{% endblock webpage %}

@@ -1,0 +1,648 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Bands | Clap Station
+{% endblock title %}
+
+{% block head %}
+
+<style>
+	@import url(https://fonts.googleapis.com/css?family=Oswald|Roboto|Slabo+27px);
+	@import 'bourbon';
+
+	body {
+		background: #ececec;
+	}
+
+	h1 {
+		font-size: 32px;
+		margin-top: 30px;
+		font-family: 'Oswald', sans-serif;
+		text-align: center;
+	}
+
+	.menu-nav {
+
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.menu-item {
+		color: white;
+		padding: 3px;
+	}
+
+	.three-dots:after {
+		cursor: pointer;
+		color: #444;
+		content: '\2807';
+		font-size: 20px;
+		padding: 0 5px;
+	}
+
+	.icon-containers {
+		position: relative;
+		top: 0;
+		right: 10px;
+	}
+
+	.btn {
+		background: none;
+	}
+
+	.band-dropdown-menu {
+		margin-top: -87px;
+		margin-left: -280%;
+		background-color: rgb(191 145 0 / 0.7);
+		color: #fff;
+	}
+
+	a {
+		text-decoration: none;
+		color: white;
+	}
+
+	a div {
+		padding: 2px;
+	}
+
+	.dropdown {
+		position: relative;
+		right: 10px;
+		background-color: rgb(191 145 0 / 0.7);
+
+		outline: none;
+		opacity: 0;
+		z-index: -1;
+		max-height: 0;
+		transition: opacity 0.1s, z-index 0.1s;
+		max-height: 5s;
+	}
+
+	.dropdown-container:focus {
+		outline: none;
+	}
+
+	.dropdown-container:focus .dropdown {
+		opacity: 1;
+		z-index: 100;
+		max-height: 100vh;
+		transition: opacity 0.2s, z-index 0.2s;
+		max-height: 0.2s;
+	}
+
+	.band-dropdown-menu .dropdown-item:hover {
+		border-radius: 10px;
+	}
+
+	@media(max-width:1024px) {
+		.band-dropdown-menu {
+			height: 80px;
+		}
+
+	}
+
+	.blog-wrapper {
+		padding: 15px;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		flex-wrap: wrap;
+
+		.blog-card {
+			@include transition(.3s);
+			width: 45%;
+			margin: 20px;
+			background: #fff;
+			border: 1px solid #CB6074;
+			text-align: center;
+			cursor: pointer;
+
+			&:hover {
+				box-shadow: 0 3px 10px 0 rgba(0, 0, 0, .1);
+
+				.card-img {
+					img {
+						opacity: 0.8;
+					}
+				}
+			}
+
+			@media(max-width: 830px) {
+				width: 80%;
+				margin: 20px;
+				background: #fff;
+				border: 1px solid #CB6074;
+				text-align: center;
+				cursor: pointer;
+			}
+
+			.card-img {
+				position: relative;
+				text-align: center;
+				background: #CB6074;
+
+				img {
+					@include transition(.3s);
+					max-height: 240px;
+					width: 100%;
+					border-bottom: 4px solid rgb(191 145 0 / 0.7);
+					;
+				}
+
+				&:before {
+					content: '';
+					position: absolute;
+					bottom: -8px;
+					left: 50%;
+					margin-left: -10px;
+					width: 0;
+					height: 0;
+					border-top: solid 10px #CB6074;
+					border-left: solid 10px transparent;
+					border-right: solid 10px transparent;
+				}
+
+				h1 {
+					position: absolute;
+					margin: 0;
+					font-size: 42px;
+					bottom: 15px;
+					width: 100%;
+					color: #fff;
+					font-family: 'Slabo 27px', serif;
+				}
+			}
+
+			.card-details {
+				margin-top: 10px;
+				font-family: 'Roboto', sans-serif;
+				color: #3C3C3C;
+
+				span {
+					padding: 0 30px;
+
+					i {
+						margin-right: 5px;
+					}
+
+				}
+			}
+
+			.card-text {
+				padding: 30px 15px;
+				font-family: 'Roboto', sans-serif;
+				line-height: 22px;
+			}
+
+			.read-more {
+				@include transition(.3s);
+				display: inline-block;
+				width: auto;
+				text-align: center;
+				text-transform: uppercase;
+				background: rgb(191 145 0 / 0.7);
+				color: #fff;
+				padding: 15px;
+				margin-bottom: 45px;
+				font-family: 'Oswald', sans-serif;
+
+				&:hover {
+					background: darken(#CB6074, 20%);
+				}
+			}
+		}
+	}
+
+/* pagination */
+.pagination>li:first-child>a{
+    margin-left: 0;
+	padding: 6px 24px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #bf9100;
+    color: #fff;
+}
+.pagination>li:last-child>a{
+    margin-left: 5px;
+	padding: 6px 24px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #bf9100;
+    color: #fff;
+}
+
+.pagination>li>a, .pagination>li>span {
+    position: relative;
+    float: left;
+    padding: 6px 24px;
+    margin-left: 5px;
+	line-height: 45px;
+    color: #fff;
+    text-decoration: none;
+    background-color: #bf9100;
+    border: 1px solid #ddd;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.pagination>.active>a, .pagination>.active>a:hover{
+    z-index: 2;
+    color: #000;
+    cursor: default;
+    background-color: #ccc;
+    border-color: #bf9100;
+}
+
+/* pagination */
+
+	footer{
+		bottom:-50px;
+	}
+</style>
+{% endblock head %}
+
+
+{% block webpage %}
+
+<div>
+	{% if messages %}
+	<div style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); padding: 15px; border-radius: 5px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; width: 300px; text-align: center; z-index: 2;">
+    <span style="cursor: pointer; float: right; margin-top: -5px; margin-right: -5px; font-size: 20px; font-weight: bold;" onclick="this.parentElement.style.display='none'">&times;</span>
+
+    {% for message in messages %}
+        {{ message }}<br>
+    {% endfor %}
+</div>
+{% endif %}
+</div>
+
+<div class="artist-top-strip" style="margin-top:100px;">
+	<div class="row">
+		<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 artist-title-col">
+			{% if user.is_authenticated and user_info.role != "Individual"  %}
+			<div class="group-crte-btn" style="margin-left: 45px;">
+				<button class="cmmn-btn slowHover" type="button" data-toggle="modal"
+					data-target="#createagroupModal"><img src=" {% static 'images/groups-1.png' %}"> Create a
+					Band</button>
+			</div>
+			{% endif %}
+			<!-- create-profile-modal start -->
+			<div id="createagroupModal" class="edit-profile-modal edit-a-group-modal create-a-group-modal modal fade"
+				role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">CREATE A BAND</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+
+						<div class="modal-body">
+							<form action="{% url 'bands' %}" method="post" enctype="multipart/form-data">
+								{% csrf_token %}
+								<div class="row">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<div class="mod-comm-wrap mod-event">
+
+											<h3 style="color: black;">Add Details : </h3>
+
+											<div class="row">
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+													<div class="mod-input-area" style="margin-top: 20px;">
+														<input type="text" placeholder="Band Name" name="Bandname">
+													</div>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+													<div class="mod-event-table">
+														<table style="width:100%;">
+
+															<!-- Budget -->
+															<tr>
+																<td>
+																	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																		<div class="mod-input-area"
+																			style="margin-top: 10px; margin-left: -15px;">
+
+																			<input type="text"
+																				placeholder="Enter your Budget"
+																				name="Bandbudget">
+																		</div>
+																	</div>
+
+																	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																		<div class="mod-input-area"
+																			style="margin-top: 10px; margin-left: -15px;">
+
+																			<input type="text"
+																				placeholder="Enter Your Address"
+																				name="Bandaddress">
+																		</div>
+																	</div>
+
+																	<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+																		<div class="mod-image-wrap mod-comm-wrap">
+																			<div class="mod-btn"
+																				style="margin-top: 10px;">
+																				<div class="box">
+																					<input type="file" name="Bandimage"
+																						id="file-1"
+																						class="inputfile inputfile-1"
+																						data-multiple-caption="{count} files selected"
+																						multiple=""
+																						onchange="readURL(this);">
+																					<label for="file-1"><i
+																							class="fa fa-cloud-upload"
+																							aria-hidden="true"></i>
+																						<span>Upload
+																							Photo</span></label>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+
+
+																</td>
+															</tr>
+
+
+															<!-- Discription -->
+															<tr>
+																<td>
+																	<div class="mod-input-area"
+																		style="margin-top: 10px;">
+																		<textarea type="text" placeholder="Type of Band"
+																			name="Banddescription"
+																			style="color: #000;"></textarea>
+																	</div>
+																</td>
+															</tr>
+
+														</table>
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="modal-footer" style="text-align: center; justify-content: space-between;">
+									<button class="cmmn-btn slowHover" type="submit" style="margin-right: 20px;"><img
+											src="{% static 'images/mod-save.jpg' %}" alt="">SAVE</button>
+								</div>
+
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!-- create-profile-modal end-->
+
+		</div>
+
+	</div>
+</div>
+
+<div class="blog-wrapper">
+	{% for obj in bands_page %}
+	<div class="blog-card moreband">
+		<div class="card-img"><img src="/media/{{obj.bandimage}}">
+			<h1>{{obj.bandname}}</h1>
+
+		</div>
+
+		<div class="card-details"><span><i class="fa fa-calendar"></i>{{obj.bandaddress}}</span></div>
+		<div class="card-text">
+			<p>Type of band - {{obj.banddescription|truncatechars:800}}</p>
+		</div>
+		<div class="read-more">Budget={{obj.bandbudget}}</div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+		{% if user.is_authenticated %}
+		<div class="read-more"><a href="{% url 'bandbooking' obj.id %}"> Band Book</a></div>
+		{% endif %}
+		{% if user == obj.author %}
+		<div class="menu-nav">
+			<div class="menu-item"></div>
+			<div class="dropdown-container" tabindex="-1">
+
+
+				<div class=" icon-containers">
+					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+							class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+							<path
+								d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+						</svg>
+					</button>
+
+					<ul class="dropdown-menu band-dropdown-menu cmmn-btn ">
+						<li><a class="dropdown-item" href="#editbandsModal-{{forloop.counter}}">
+								<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+								<span data-toggle="modal" data-target="#editbandsModal-{{forloop.counter}}"
+									style="font-size: larger; margin-left: 5px; color: #fff;"> Edit</span></a>
+						</li>
+
+						<li><a class="dropdown-item" href="/bandsdelete/{{obj.id}}">
+								<i class="fa fa-trash-o" aria-hidden="true"></i>
+								<span data-toggle="modal" data-target="#editbandsModal-{{forloop.counter}}"
+									style="font-size: larger; margin-left: 5px; color: #fff;"> Delete</span></a>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+		</div>
+		{% endif %}
+
+	</div>
+	{% endfor %}
+</div>
+
+{% for obj in bands_page %}
+<div id="editbandsModal-{{forloop.counter}}"
+	class="edit-profile-modal edit-a-group-modal create-a-group-modal modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">EDIT YOUR BAND</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<div class="modal-body">
+				<form action="/bandsupdate/{{obj.id}}" method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<div class="mod-comm-wrap mod-event">
+
+								<h3 style="color: black;">EDIT Details : </h3>
+
+								<div class="row">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<div class="mod-input-area" style="margin-top: 20px;">
+											<input type="text" placeholder="Band Name" name="Bandname"
+												value="{{obj.bandname}}">
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<div class="mod-event-table">
+											<table style="width:100%;">
+
+												<!-- Budget -->
+												<tr>
+													<td>
+														<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+															<div class="mod-input-area"
+																style="margin-top: 10px; margin-left: -15px;">
+
+																<input type="text" placeholder="Enter your Budget"
+																	name="Bandbudget" value="{{obj.bandbudget}}">
+															</div>
+														</div>
+
+														<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+															<div class="mod-input-area"
+																style="margin-top: 10px; margin-left: -15px;">
+
+																<input type="text" placeholder="Enter Your Address"
+																	name="Bandaddress" value="{{obj.bandaddress}}">
+															</div>
+														</div>
+
+														<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+															<div class="mod-image-wrap mod-comm-wrap">
+																<div class="mod-btn" style="margin-top: 10px;">
+																	<div class="box">
+																		<input type="file" name="Bandimage" id="file-1"
+																			value="{{obj.bandimage}}"
+																			class="inputfile inputfile-1"
+																			data-multiple-caption="{count} files selected"
+																			multiple="" onchange="readURL(this);">
+																		<label for="file-1"><i
+																				class="fa fa-cloud-upload"
+																				aria-hidden="true"></i> <span>Upload
+																				Photo</span></label>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+
+
+												<!-- Discription -->
+												<tr>
+													<td>
+														<div class="mod-input-area" style="margin-top: 10px;">
+															<textarea type="text" placeholder="Type of Band"
+																name="Banddescription"
+																style="color: #000;">{{obj.banddescription}}</textarea>
+														</div>
+													</td>
+												</tr>
+
+											</table>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="modal-footer" style="text-align: center; justify-content: space-between;">
+						<button class="cmmn-btn slowHover" type="submit" style="margin-right: 20px;"><img
+								src="{% static 'images/mod-save.jpg' %}" alt="">update</button>
+					</div>
+
+				</form>
+			</div>
+
+		</div>
+	</div>
+</div>
+{% endfor %}
+<br>
+<!-- Pagination Start -->
+<div class="pagination-section" style="text-align: center;">
+	<ul class="pagination">
+		<!-- Enclose pagination links in a <ul> element -->
+		{% if bands_page.paginator.num_pages > 1 %}
+			{% if bands_page.has_previous %}
+				<li class="page-item previous-page"><a class="page-link" style="padding-left: 16px;" href="?page=1" tabindex="-1">First</a></li>
+				<li class="page-item previous-page"><a class="page-link" style="padding-left: 14px;" href="?page={{ bands_page.previous_page_number }}" tabindex="-1">Prev</a></li>
+			{% endif %}
+
+			{% for n in bands_page.paginator.page_range %}
+				{% if bands_page.number == n %}
+					<li class="page-item active"><a class="page-link">{{ n }}</a></li>
+				{% elif n == bands_page.paginator.page_range.start %}
+					<li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+					{% if bands_page.number > n|add:2 %}
+						<li class="page-item dots"><a class="page-link">...</a></li>
+					{% endif %}
+				{% elif n == bands_page.paginator.page_range.stop %}
+					{% if bands_page.number < n|add:-2 %} 
+						<li class="page-item dots"><a class="page-link">...</a></li>
+					{% endif %}
+					<li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+				{% elif n > bands_page.number|add:-2 and n < bands_page.number|add:3 %} 
+					<li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+				{% endif %}
+			{% endfor %}
+
+			{% if bands_page.has_next %}
+				<li class="page-item next-page"><a class="page-link" style="padding-left: 16px;" href="?page={{ bands_page.next_page_number }}">Next</a></li>
+				<li class="page-item next-page"><a class="page-link" style="padding-left: 16px;" href="?page={{ bands_page.paginator.num_pages }}">Last</a></li>
+			{% endif %}
+		{% endif %}
+	</ul>
+</div>
+<!-- Pagination End -->
+{% endblock webpage %}
+
+{% block JS %}
+
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="js/popper.min.js" type="text/javascript"></script>
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
+<script src="js/datelocal.js"></script>
+<script type="text/javascript" src="js/bootstrap-datetimepicker.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/custom.js" type="text/javascript"></script>
+<script src="assets/js/main.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+<script type="text/javascript">
+	$(function () {
+		$('.toggle-menu').click(function () {
+			$('.exo-menu').toggleClass('display');
+		});
+	});
+	$(document).ready(function () {
+		$(".toggle-menu").click(function () {
+			$(".mobile-close").show(400);
+		});
+		$(".mobile-close").click(function () {
+			$(".exo-menu").removeClass('display');
+			$(this).hide(400);
+		});
+	});
+
+</script>
+
+{% endblock JS %}

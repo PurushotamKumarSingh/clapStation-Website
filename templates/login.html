@@ -1,0 +1,280 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Login | Clap Station
+{% endblock title %}
+
+{% block head %}
+<style>
+	.main-login-wrap {
+		position: relative;
+		top: 30%;
+		transform: translateY(-80px);
+		margin-bottom: 70px;
+	}
+	
+	.login-logo-img {
+		text-align: center;
+		background: #fff;
+		border-radius: 50%;
+		width: 70%;
+		height: 40%;
+		line-height: 400px;
+		margin-left:auto;
+		margin-right:auto;
+		
+	}
+	
+	.login-logo-img img {
+		width: 100%;
+		padding: 60px;
+		border-radius: 20%;
+		text-align: center;
+		display: block;
+		margin-left: auto;
+  		margin-right: auto;
+	}
+	
+	.login-logo-img h2 {
+		border-radius: 50%;
+		background: #fff;
+		color: #bf9100;
+		font-size: 40px;
+		font-weight: 700;
+		height: 400px;
+		width: 400px;
+		line-height: 400px;
+		margin: auto;
+	}
+	
+	.login-detail-wrap {
+		background-color: #f0f2f5;
+		width: 85%;
+		padding: 30px 0;
+		border-radius: 10px;
+		margin-top: 50px;
+		position: relative;
+		text-align: center;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
+	.login-detail-in {
+		text-align: center;
+		background-color: #fff;
+		max-width: 440px;
+		margin: auto;
+		border-radius: 10px;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+	}
+	
+	.login-detail-wrap .login-circle {
+		background-color: #f0f2f5;
+		position: absolute;
+		font-size: 25px;
+		font-weight: bold;
+		color: #bf9100;
+		top: -100px;
+		right: 0;
+		width: 150px;
+		height: 150px;
+		line-height: 120px;
+		border-radius: 50%;
+		left: 0;
+		margin: auto;
+		text-align: center;
+		z-index: -1;
+	}
+	
+	.login-detail-in form {
+		padding: 15px;
+	}
+	
+	.login-detail-in .styled-input {
+		padding: 0 0 10px;
+	}
+	
+	.login-detail-in .styled-input input,
+	.login-detail-in .styled-input select,
+	.signup-detail-in .styled-input-gdr {
+		overflow: visible;
+		width: 100%;
+		padding-left: 10px;
+		height: 40px;
+		border: 1px solid #e4e5e7;
+		border-radius: 5px;
+		font-size: 15px;
+		color: #000;
+		outline: none;
+	}
+	
+	.login-detail-in .styled-input input::placeholder {
+		color: #606770 !important;
+	}
+	
+	.clap-cmmn-btn {
+		padding-bottom: 50px;
+		border-bottom: 1px solid #dcdfe3;
+	}
+	
+	.login-btn {
+		background-color: #bf9100;
+		border: 0;
+		width: 100%;
+		padding: 7px 0;
+		border-radius: 10px;
+		color: #fff;
+		font-size: 25px;
+		font-weight: 500;
+		text-align: center;
+	}
+	
+	.create-account-btn {
+		background-color: #42b72a;
+		border: 0;
+		padding: 10px 30px;
+		border-radius: 5px;
+		color: #fff;
+		font-size: 16px;
+		font-weight: 600;
+		margin: 30px 0 10px;
+		text-align: center;
+	}
+	
+	.create-account-btn:hover,
+	.login-btn:hover {
+		background-color: #222;
+	}
+
+	@media only screen and (max-width: 767px) {
+		.login-logo-img {
+			display: none;
+		}
+		.login-logo-img img {
+			width: 100%;
+			padding: 60px;
+			border-radius: 20%;
+			text-align: center;
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		
+	}
+
+	@media only screen and (max-width: 992px) {
+		.login-logo-img {
+			text-align: center;
+			background: #fff;
+			border-radius: 50%;
+			width: 50%;
+			height: 30%;
+			line-height: 400px;
+			margin-left:auto;
+			margin-right:auto;
+			margin-bottom:60px;
+		}
+		.login-logo-img img {
+			width: 100%;
+			padding: 60px;
+			border-radius: 20%;
+			text-align: center;
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		
+	}
+
+</style>
+{% endblock head %}
+
+
+{% block webpage %}
+{% if messages %}
+    <div style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); padding: 15px; border-radius: 5px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; width: 300px; text-align: center; z-index: 2;">
+    <span style="cursor: pointer; float: right; margin-top: -5px; margin-right: -5px; font-size: 20px; font-weight: bold;" onclick="this.parentElement.style.display='none'">&times;</span>
+
+    {% for message in messages %}
+        {{ message }}<br>
+    {% endfor %}
+</div>
+{% endif %}
+
+
+
+    <!--website-wrap-->
+<div class="website-wrap login-page">
+    
+<div class="page-back">
+
+    
+
+
+<!--page-black-overlay-->    
+<div class="page-black-overlay">
+    
+<div class="main-login-wrap">
+    <div class="container">
+        <div class="row">            
+             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                <div class="login-logo-img">                   
+                    <a href="#"><img src="{% static 'images/logo.png' %}" class="logo-img"></a>
+                </div>
+             </div>
+			 <br><br><br>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                <div class="login-detail-wrap">
+                    <span class="login-circle">LOGIN</span>
+                    <div class="login-detail-in">
+                        <form class="form" method="POST">
+                            <h3 id="error" style="color:red"></h3>
+                           {% csrf_token %}
+                           <div class="styled-input agile-styled-input-top">
+                               <input type="text" placeholder="Email Address or Phone Number" name="username" id="username" required="">
+                           </div>
+                           <div class="styled-input">
+                               <input type="password" placeholder="Password" name="password" id="password" required="">
+                           </div>
+                           <div class="clap-cmmn-btn">
+                           <input class="login-btn slowHover" value="Login" type="submit"onclick="login()">
+                           </div>
+                           <div class="regtr-btn">
+                                 <a class="create-account-btn slowHover" type="button" href="{% url 'signup' %}">Create New Account</a>
+                           </div>
+                       </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--scroll-to-top-->
+</div><!--website-wrap-->
+</div><!--website-wrap-overlay-->
+
+
+{% endblock webpage %}
+
+
+
+{% block JS %}
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="js/popper.min.js" type="text/javascript"></script>
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/custom.js" type="text/javascript"></script>
+<script src="assets/js/main.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% endblock JS %}

@@ -1,0 +1,323 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Academies | Clap Station
+{% endblock title %}
+
+{% block webpage %}
+{% block head %}
+<style>
+	.events_container {
+		margin-top: 80px;
+	}
+
+	.events_container2 {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-wrap: wrap;
+
+	}
+
+	.events_container {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-wrap: wrap;
+	}
+
+	.item-container {
+		position: relative;
+		margin: 24px;
+		width: 320px;
+		height: 570px;
+		overflow: hidden;
+		background-color: #fff;
+		box-shadow: 0 0 30px 5px rgba(0, 0, 0, 0.15);
+		cursor: pointer;
+	}
+
+	.img-container,
+	.body-container {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	.img-container img {
+		width: 100%;
+		height: 400px;
+		/* Set a specific height for the image */
+		object-fit: cover;
+		/* Ensure the image covers the entire space */
+	}
+
+	.body-container {
+		position: relative;
+	}
+
+	.overlay {
+		position: relative;
+		width: 100%;
+		height: 400px;
+		background-color: rgb(191 145 0 / 0.7);
+		opacity: 0;
+		transition: height linear 0.4s, opacity linear 0.2s;
+	}
+
+	.item-container:hover .overlay {
+		opacity: 1;
+		height: 150px;
+	}
+
+	.event-info {
+		background-color: #fff;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding: 8px;
+	}
+
+	.title,
+	.price {
+		color: rgb(191 145 0 / 0.7);
+		font-size: 1.5em;
+		font-weight: bold;
+		letter-spacing: 1px;
+		margin: 12px;
+	}
+
+	.info {
+		letter-spacing: 0.5px;
+		margin-bottom: 6px;
+	}
+
+	.separator {
+		width: 20%;
+		height: 6px;
+		background-color: rgb(191 145 0 / 0.7);
+		margin-bottom: 16px;
+	}
+
+	.additional-info {
+		border-top: 1px solid #bbb;
+		margin-top: 12px;
+		padding: 28px;
+		padding-bottom: 0;
+	}
+
+	.additional-info .info {
+		font-size: 0.9em;
+		margin-bottom: 20px;
+		text-align: center;
+	}
+
+	.info i {
+		color: #18537a;
+		font-size: 1.1em;
+		margin-right: 4px;
+	}
+
+	.info span {
+		color: #18537a;
+		font-weight: bolder;
+	}
+
+	.action {
+		color: #fff;
+		border: 3px solid #fff;
+		background-color: transparent;
+		position: absolute;
+		top: -100px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 60%;
+		outline: none;
+		cursor: pointer;
+		padding: 12px;
+		text-transform: uppercase;
+		font-size: 1.3em;
+		font-weight: bold;
+		letter-spacing: 2px;
+		transition: background-color 0.4s, top 0.4s;
+	}
+
+	.item-container:hover .action {
+		top: 50px;
+	}
+
+	.action:hover {
+		background-color: rgba(255, 255, 255, 0.2);
+	}
+
+	/* pagination */
+.pagination>li:first-child>a{
+    margin-left: 0;
+	padding: 6px 24px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #bf9100;
+    color: #fff;
+}
+.pagination>li:last-child>a{
+    margin-left: 5px;
+	padding: 6px 24px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #bf9100;
+    color: #fff;
+}
+
+.pagination>li>a, .pagination>li>span {
+    position: relative;
+    float: left;
+    padding: 6px 24px;
+    margin-left: 5px;
+	line-height: 45px;
+    color: #fff;
+    text-decoration: none;
+    background-color: #bf9100;
+    border: 1px solid #ddd;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.pagination>.active>a, .pagination>.active>a:hover{
+    z-index: 2;
+    color: #000;
+    cursor: default;
+    background-color: #ccc;
+    border-color: #bf9100;
+}
+
+/* pagination */
+</style>
+{% endblock head %}
+
+<div class="events_container">
+	{% for i in academic %}
+	<div class="item-container">
+		<div class="img-container">
+			<img src="/media/{{i.poster1}}" alt="Event image">
+		</div>
+
+		<div class="body-container">
+			<div class="overlay"></div>
+
+			<div class="event-info">
+				<p class="title">{{i.academic_title}}</p>
+				<div class="separator"></div>
+				<p class="info">{{i.city}},{{i.state}}</p>
+				<br>
+
+				<div class="additional-info">
+					<p class="info">
+						<i class="fas fa-map-marker-alt"></i>
+						{{i.venue}}
+					</p>
+					<p class="info">
+						<i class="far fa-calendar-alt"></i>
+						{{i.date}}, 10:00 AM EDT
+					</p>
+
+					<p class="info description">
+						{{i.description|truncatechars:200  }}<a href="{% url 'academy_detail' i.id %}" style="color:black;"><b>more...</b></a>
+					</p>
+				</div>
+			</div>
+			<button class="action"><a href="{% url 'academy_detail' i.id %}">Learn More</a></button>
+		</div>
+	</div>
+	{% endfor %}
+
+</div>
+
+<!-- pagination start -->
+<div class="pagination-section" style="text-align: center;">
+	<ul class="pagination">
+		<!-- Enclose pagination links in a <ul> element -->
+		{% if academic.paginator.num_pages > 1 %}
+			{% if academic.has_previous %}
+				<li class="page-item previous-page"><a class="page-link" style="padding-left: 16px;" href="?page=1" tabindex="-1">First</a></li>
+				<li class="page-item previous-page"><a class="page-link" style="padding-left: 14px;" href="?page={{ academic.previous_page_number }}" tabindex="-1">Prev</a></li>
+			{% endif %}
+
+			{% for n in academic.paginator.page_range %}
+				{% if academic.number == n %}
+					<li class="page-item active"><a class="page-link">{{ n }}</a></li>
+				{% elif n == academic.paginator.page_range.start %}
+					<li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+					{% if academic.number > n|add:2 %}
+						<li class="page-item dots"><a class="page-link">...</a></li>
+					{% endif %}
+				{% elif n == academic.paginator.page_range.stop %}
+					{% if academic.number < n|add:-2 %} 
+						<li class="page-item dots"><a class="page-link">...</a></li>
+					{% endif %}
+					<li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+				{% elif n > academic.number|add:-2 and n < academic.number|add:3 %} 
+					<li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+				{% endif %}
+			{% endfor %}
+
+			{% if academic.has_next %}
+				<li class="page-item next-page"><a class="page-link" style="padding-left: 16px;" href="?page={{ academic.next_page_number }}">Next</a></li>
+				<li class="page-item next-page"><a class="page-link" style="padding-left: 16px;" href="?page={{ academic.paginator.num_pages }}">Last</a></li>
+			{% endif %}
+		{% endif %}
+	</ul>
+</div>
+<!-- Pagination End -->
+
+
+
+
+
+
+
+
+
+
+
+<!-- pagination end -->
+
+
+{% endblock webpage %}
+
+{% block JS %}
+
+<script src=" {% static 'js/jquery.js' %}" type="text/javascript"></script>
+<script src=" {% static 'js/popper.min.js' %}" type="text/javascript"></script>
+<script src=" {% static 'js/bootstrap.min.js' %}" type="text/javascript"></script>
+<script src=" {% static 'js/datelocal.js' %}"></script>
+<script type="text/javascript" src=" {% static 'js/bootstrap-datetimepicker.js' %}"></script>
+<script src=" {% static 'js/owl.carousel.min.js' %}"></script>
+<script src=" {% static 'js/custom.js' %}" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+	$(function () {
+		$('.toggle-menu').click(function () {
+			$('.exo-menu').toggleClass('display');
+		});
+	});
+	$(document).ready(function () {
+		$(".toggle-menu").click(function () {
+			$(".mobile-close").show(400);
+		});
+		$(".mobile-close").click(function () {
+			$(".exo-menu").removeClass('display');
+			$(this).hide(400);
+		});
+	});
+</script>
+
+{% endblock JS %}

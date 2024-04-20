@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+{% endblock title %}
+{% block head %}
+<style>
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 300px;
+        margin: auto;
+        text-align: center;
+        font-family: arial;
+        width: 20%;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    .card:hover {
+        box-shadow: 0 10px 15px rgb(191 145 0 / 0.7);
+        transform: scale(1.03);
+    }
+
+    .title {
+        color: grey;
+        font-size: 18px;
+    }
+
+    button {
+        border: none;
+        outline: 0;
+        display: inline-block;
+        padding: 8px;
+        color: white;
+        background-color: rgb(191 145 0 / 0.7);
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        font-size: 18px;
+        /* margin-bottom: 50px; */
+    }
+
+    .social-icon a {
+        text-decoration: none;
+        font-size: 22px;
+        color: rgb(218, 169, 8);
+    }
+
+    button:hover,
+    .social-icon a:hover {
+        opacity: 0.7;
+        background-color: rgb(11, 146, 167);
+    }
+
+    .booktutorcontainer {
+        display: flex;
+        margin-top: 100px;
+
+    }
+
+    .booktutorcontainer1 {
+        display: flex;
+        margin-top: 40px;
+        margin-bottom: 50px;
+    }
+
+    .color {
+        background-color: white;
+    }
+
+    .social-icon {
+        margin: 5px 0;
+        background: #333;
+    }
+
+    /* For screens smaller than 768px */
+    @media screen and (max-width: 767px) {
+        .booktutorcontainer {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card {
+            width: 80%;
+            /* Adjust width of cards for smaller screens */
+            margin: 20px 0;
+            /* Add margin between cards */
+        }
+    }
+
+    /* For screens smaller than 480px */
+    @media screen and (max-width: 479px) {
+        .card {
+            width: 100%;
+            /* Adjust width of cards for even smaller screens */
+        }
+    }
+</style>
+{% endblock head %}
+
+{% block webpage %}
+<div class="booktutorcontainer">
+
+    {% for content in tutorcon  %}
+    <div class="card">
+        <img src="/media/{{content.images_fields}}"
+            alt="John" style="width:100%">
+        <div class="color">
+            <h1>{{content.name}}</h1>
+            <p class="title">{{content.Profession_title}}</p>
+            <p>{{content.Fee}}</p>
+            <p>{{content.Status}}</p>
+            <p>{{content.SessionDays}} per hour</p>
+        </div>
+        <div class="social-icon">
+            <a href=""><i class="fa fa-dribbble"></i></a>
+            <a href="{{content.social_links}}"><i class="fa fa-twitter"></i></a>
+            <a href="{{content.social_links1}}"><i class="fa fa-instagram"></i></a>
+            <a href="{{content.social_links2}}"><i class="fa fa-facebook"></i></a>
+        </div>
+  
+        <p><a href="{% url 'TutorContact' content.id %}"><button>Contact</button></a></p>
+    </div>
+    {% endfor %}
+
+
+</div>
+
+
+
+{% endblock webpage %}
