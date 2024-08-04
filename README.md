@@ -1,4 +1,4 @@
-
+  
 ## clapStation Website
 
 ClapStation is a comprehensive event management platform built using HTML, CSS, JavaScript, Bootstrap, Python, and Django. The website offers user authentication, secure data handling, and tools for organizing and promoting events. By enhancing the user experience and streamlining event processes, ClapStation contributed to a 40% increase in event participation.
