@@ -1,7 +1,7 @@
 
-## Bank Loan Analysis Using Excel
+## clapStation Website
 
-The Bank Loan Report project involves analyzing and visualizing key loan-related metrics to monitor and assess the bank's lending activities. By using various charts, the report aims to provide clear insights into loan performance, trends, and portfolio health, supporting data-driven decision-making and strategic planning.
+ClapStation is a comprehensive event management platform built using HTML, CSS, JavaScript, Bootstrap, Python, and Django. The website offers user authentication, secure data handling, and tools for organizing and promoting events. By enhancing the user experience and streamlining event processes, ClapStation contributed to a 40% increase in event participation.
 
 
 ## Demo
