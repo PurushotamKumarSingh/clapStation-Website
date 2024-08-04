@@ -8,7 +8,7 @@ ClapStation is a comprehensive event management platform built using HTML, CSS, 
 
 https://github.com/PurushotamKumarSingh/clapStation-Website/issues/1#issue-2447113448
 
-## ScreernShot
+## ScreenShot
 
 ![ClapStation ScreenShot](https://github.com/user-attachments/assets/14ee8493-ddd3-4e64-8fba-c3a052d3dc59)
 
